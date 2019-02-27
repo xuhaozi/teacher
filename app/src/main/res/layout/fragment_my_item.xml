@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--加入fitsSystemWindows这一句是为了保证在安卓5.0以后的版本中软键盘依旧不遮挡登录按钮-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+   >
+
+    <LinearLayout
+        android:background="#F7F8F9"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1.2">
+
+        <LinearLayout
+            android:layout_weight="2.5"
+            android:layout_width="0dip"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_marginLeft="27dp"
+                android:text="我的教室"
+                android:gravity="center"
+                android:textSize="17sp"
+                android:textColor="#231F3A"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:gravity="center|right"
+            android:orientation="horizontal"
+            android:layout_width="0dip"
+            android:layout_weight="7"
+            android:layout_height="match_parent">
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="4">
+            <LinearLayout
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_width="0dip"
+                    android:orientation="horizontal"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:src="@mipmap/icon_help"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_marginLeft="5dp"
+                        android:text="帮助"
+                        android:textSize="18sp"
+                        android:textColor="#2E2E2E"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <View
+                    android:background="#919191"
+                    android:layout_width="0.5dp"
+                    android:layout_height="26dp"></View>
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_width="0dip"
+                    android:orientation="horizontal"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:src="@mipmap/icon_setup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_marginLeft="5dp"
+                        android:text="设置"
+                        android:textSize="18sp"
+                        android:textColor="#2E2E2E"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+                <View
+                    android:background="#919191"
+                    android:layout_width="0.5dp"
+                    android:layout_height="26dp"></View>
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_width="0dip"
+                    android:orientation="horizontal"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:src="@mipmap/icon_out"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_marginLeft="5dp"
+                        android:text="退出"
+                        android:textSize="18sp"
+                        android:textColor="#2E2E2E"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:background="#F1F0F5"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="10">
+
+        <LinearLayout
+            android:gravity="right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+
+
+
+
+
+</LinearLayout>

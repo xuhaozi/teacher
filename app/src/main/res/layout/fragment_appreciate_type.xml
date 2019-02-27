@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--加入fitsSystemWindows这一句是为了保证在安卓5.0以后的版本中软键盘依旧不遮挡登录按钮-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/video_fragment"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:background="#F1F0F5"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_weight="3"
+                android:layout_width="0dip"
+                android:layout_height="match_parent">
+
+
+
+                <TextView
+                    android:layout_marginLeft="30dp"
+                    android:gravity="center"
+                    android:textColor="#2E2E2E"
+                    android:text="音乐类型  ——  "
+                    android:textSize="15sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/tv_Choice"
+                    android:gravity="center"
+                    android:textColor="#2E2E2E"
+                    android:text="国内音乐类型"
+                    android:textSize="15sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <ImageView
+                    android:layout_marginLeft="20dp"
+                    android:src="@mipmap/list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_marginRight="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+
+                <TextView
+                    android:id="@+id/tv_domestic"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="国内"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#ff231f3a"
+                    android:textSize="15sp"
+                    />
+
+                <View
+                    android:layout_margin="10dp"
+                    android:background="#000000"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"></View>
+                <TextView
+                    android:id="@+id/tv_abroad"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="国外"
+                    android:textColor="#ff231f3a"
+                    android:textSize="15sp"
+                    />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.example.admin.musicclassroom.widget.MyGridView
+                android:id="@+id/gv_datas"
+                android:numColumns="4"
+                android:verticalSpacing="10dp"
+                android:horizontalSpacing="15dp"
+                android:fadeScrollbars="true"
+                android:background="#F1F0F5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></com.example.admin.musicclassroom.widget.MyGridView>
+
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+
+
+
+
+
+</RelativeLayout>

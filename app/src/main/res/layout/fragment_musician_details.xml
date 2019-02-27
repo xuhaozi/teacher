@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--加入fitsSystemWindows这一句是为了保证在安卓5.0以后的版本中软键盘依旧不遮挡登录按钮-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/video_fragment"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:background="#F1F0F5"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_weight="3"
+                android:layout_width="0dip"
+                android:layout_height="match_parent">
+
+
+
+                <TextView
+                    android:layout_marginLeft="30dp"
+                    android:gravity="center"
+                    android:textColor="#2E2E2E"
+                    android:text="音乐家  ——  "
+                    android:textSize="15sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/tv_Choice"
+                    android:gravity="center"
+                    android:textColor="#2E2E2E"
+                    android:text=""
+                    android:textSize="15sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <ImageView
+                    android:layout_marginLeft="20dp"
+                    android:src="@mipmap/list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_return"
+                android:orientation="horizontal"
+                android:layout_marginRight="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:src="@mipmap/icon_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <TextView
+
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="返回目录"
+                    android:textColor="#ff231f3a"
+                    android:textSize="15sp"
+                    />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_marginBottom="50dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="10">
+
+
+            <LinearLayout
+                android:background="@color/white"
+                android:layout_weight="7"
+                android:orientation="horizontal"
+                android:layout_width="0dip"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_weight="4"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:id="@+id/iv_instrumentalmusic_img"
+                        android:scaleType="fitXY"
+                        android:layout_marginRight="50dp"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginTop="60dp"
+                        android:layout_marginBottom="70dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+                <View
+                    android:layout_marginTop="55dp"
+                    android:layout_marginBottom="65dp"
+                    android:background="#95989A"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"></View>
+
+                <LinearLayout
+                    android:layout_weight="6.5"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tv_name"
+                            android:layout_marginTop="60dp"
+                            android:layout_marginLeft="35dp"
+                            android:textStyle="bold"
+                            android:textSize="30sp"
+                            android:textColor="#29315A"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+
+                        <TextView
+                            android:id="@+id/tv_body"
+                            android:scrollbars="vertical"
+                            android:layout_marginRight="50dp"
+                            android:layout_marginTop="25dp"
+                            android:layout_marginLeft="35dp"
+                            android:textSize="20sp"
+                            android:layout_marginBottom="70dp"
+                            android:textColor="#29315A"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:background="#231F3A"
+                android:layout_weight="3"
+                android:layout_width="0dip"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <Button
+                            android:layout_marginRight="7dp"
+                            android:layout_marginLeft="7dp"
+                            android:layout_marginTop="11dp"
+                            android:textColor="#E3E3E3"
+                            android:text="音乐欣赏"
+                            android:background="@drawable/btn_violet"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_weight="5.2"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dip">
+
+                        <ListView
+                            android:divider="@null"
+                            android:drawSelectorOnTop="false"
+                            android:id="@+id/lv_music_data"
+                            android:dividerHeight="1.0dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"></ListView>
+
+                    </LinearLayout>
+
+
+
+
+
+
+                </LinearLayout>
+
+
+
+
+
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+
+
+
+
+
+
+</RelativeLayout>

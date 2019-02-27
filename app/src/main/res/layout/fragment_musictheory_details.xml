@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--加入fitsSystemWindows这一句是为了保证在安卓5.0以后的版本中软键盘依旧不遮挡登录按钮-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/video_fragment"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+
+
+
+    <LinearLayout
+        android:background="#F1F0F5"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                >
+                <LinearLayout
+                    android:layout_weight="2.5"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_marginLeft="27dp"
+                        android:text="乐理知识"
+                        android:gravity="center"
+                        android:textSize="17sp"
+                        android:textColor="#231F3A"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:gravity="center|right"
+                    android:orientation="horizontal"
+                    android:layout_width="0dip"
+                    android:layout_weight="8"
+                    android:layout_height="match_parent">
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2.5">
+                    <LinearLayout
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+                        <com.example.admin.musicclassroom.widget.SearchEditText
+                            android:id="@+id/ed_search"
+                            style="@style/layout_SearchStyle"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_weight="1"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:hint="请输入搜索內容"
+                            android:textColor="#9a9a9a"
+                            android:textColorHint="#9a9a9a" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_weight="3"
+                android:layout_width="0dip"
+                android:layout_height="match_parent">
+
+
+
+                <TextView
+                    android:layout_marginLeft="30dp"
+                    android:gravity="center"
+                    android:textColor="#2E2E2E"
+                    android:text="乐谱  ——  "
+                    android:textSize="15sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/tv_Choice"
+                    android:gravity="center"
+                    android:textColor="#2E2E2E"
+                    android:text=""
+                    android:textSize="15sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <ImageView
+                    android:layout_marginLeft="20dp"
+                    android:src="@mipmap/list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_return"
+                android:orientation="horizontal"
+                android:layout_marginRight="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:src="@mipmap/icon_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <TextView
+
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="返回目录"
+                    android:textColor="#ff231f3a"
+                    android:textSize="15sp"
+                    />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/iv_musictheory_img"
+            android:src="@mipmap/icon_default_bg"
+            android:scaleType="fitXY"
+            android:layout_marginBottom="50dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+           >
+        </ImageView>
+
+
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/iv_video"
+        android:paddingRight="100dp"
+        android:paddingBottom="100dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:src="@mipmap/icon_video_musictheory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></ImageView>
+
+
+
+
+
+</RelativeLayout>

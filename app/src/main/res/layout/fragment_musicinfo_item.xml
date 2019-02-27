@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--加入fitsSystemWindows这一句是为了保证在安卓5.0以后的版本中软键盘依旧不遮挡登录按钮-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:background="#F7F8F9"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="1.2">
+
+            <LinearLayout
+                android:layout_weight="2.5"
+                android:layout_width="0dip"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_marginLeft="27dp"
+                    android:gravity="center"
+                    android:textSize="17sp"
+                    android:textColor="#231F3A"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+
+
+                <ImageView
+                    android:layout_marginLeft="10dp"
+                    android:src="@mipmap/icon_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:gravity="center|right"
+                android:orientation="horizontal"
+                android:layout_width="0dip"
+                android:layout_weight="3"
+                android:layout_height="match_parent">
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="4.5">
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:gravity="center|right"
+                        android:orientation="horizontal"
+                        android:layout_width="0dip"
+                        android:layout_weight="8"
+                        android:layout_height="match_parent">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+
+                            <LinearLayout
+                                android:layout_width="0dip"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <Button
+                                        android:id="@+id/btn_music"
+                                        android:drawableLeft="@mipmap/icon_teaching_music"
+                                        android:paddingRight="15dp"
+                                        android:paddingLeft="20dp"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="33dp"
+                                        android:textSize="13sp"
+                                        android:background="@mipmap/icon_violet"
+                                        android:text="乐谱"
+                                        android:textColor="@color/teaching_item_title" />
+
+                                </LinearLayout>
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="0dip"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <Button
+                                        android:id="@+id/btn_video"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="33dp"
+                                        android:textSize="13sp"
+                                        android:drawableLeft="@mipmap/icon_teaching_video"
+                                        android:background="@color/background"
+                                        android:textColor="@color/teaching_item_title"
+                                        android:paddingRight="15dp"
+                                        android:paddingLeft="20dp"
+                                        android:text="视频"
+                                        />
+
+                                </LinearLayout>
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="0dip"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <Button
+                                        android:id="@+id/btn_musictheory"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="33dp"
+                                        android:textSize="13sp"
+                                        android:drawableLeft="@mipmap/icon_teaching_musictheory"
+                                        android:background="@color/background"
+                                        android:textColor="@color/teaching_item_title"
+                                        android:paddingRight="15dp"
+                                        android:paddingLeft="20dp"
+                                        android:text="乐理"
+                                        />
+
+                                </LinearLayout>
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="0dip"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <Button
+                                        android:id="@+id/btn_instrumentalmusic"
+                                        android:layout_width="wrap_content"
+                                        android:textSize="13sp"
+                                        android:layout_height="33dp"
+                                        android:drawableLeft="@mipmap/icon_instrumentalmusic"
+                                        android:background="@color/background"
+                                        android:textColor="@color/teaching_item_title"
+                                        android:paddingRight="15dp"
+                                        android:paddingLeft="20dp"
+                                        android:text="器乐"
+                                        />
+
+                                </LinearLayout>
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="0dip"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <Button
+                                        android:id="@+id/btn_exercises"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="33dp"
+                                        android:textSize="13sp"
+                                        android:drawableLeft="@mipmap/icon_exercises"
+                                        android:background="@color/background"
+                                        android:textColor="@color/teaching_item_title"
+                                        android:paddingRight="15dp"
+                                        android:paddingLeft="20dp"
+                                        android:text="习题"
+                                        />
+
+                                </LinearLayout>
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:background="#F1F0F5"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="10">
+
+
+            <FrameLayout
+                android:id="@+id/fl_body_teaching"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></FrameLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+
+
+</RelativeLayout>

@@ -1,0 +1,66 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#F1F0F5"
+    android:layout_margin="5dp"
+    >
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="265dp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_cover"
+            android:scaleType="fitXY"
+            android:src="@mipmap/icon_default_bg"
+            android:layout_width="265dp"
+            android:layout_height="265dp" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="10"
+                android:layout_marginTop="13dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:text=""
+                    android:layout_gravity="center"
+                    android:textSize="20dp"
+                    android:textColor="@color/home_item_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/ll_play"
+                android:gravity="bottom"
+                android:layout_marginRight="9dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:src="@mipmap/icon_home_play"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp" />
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--加入fitsSystemWindows这一句是为了保证在安卓5.0以后的版本中软键盘依旧不遮挡登录按钮-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff">
+
+<ImageView
+    android:layout_margin="30dp"
+    android:src="@mipmap/icon_drawing_board"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />
+
+
+</RelativeLayout>

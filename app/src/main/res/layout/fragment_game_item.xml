@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--加入fitsSystemWindows这一句是为了保证在安卓5.0以后的版本中软键盘依旧不遮挡登录按钮-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:background="#F7F8F9"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1.2">
+
+        <LinearLayout
+            android:layout_weight="2.5"
+            android:layout_width="0dip"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_marginLeft="27dp"
+                android:text="游戏"
+                android:gravity="center"
+                android:textSize="17sp"
+                android:textColor="#231F3A"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:gravity="center|right"
+            android:orientation="horizontal"
+            android:layout_width="0dip"
+            android:layout_weight="8"
+            android:layout_height="match_parent">
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5">
+            <LinearLayout
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <com.example.admin.musicclassroom.widget.SearchEditText
+                    android:id="@+id/ed_search"
+                    style="@style/layout_SearchStyle"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:hint="请输入搜索內容"
+                    android:textColor="#9a9a9a"
+                    android:textColorHint="#9a9a9a" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:background="#F1F0F5"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="10">
+
+
+        <ImageView
+            android:src="@drawable/icon_game_bg"
+            android:scaleType="fitXY"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+    </LinearLayout>
+
+
+
+
+
+
+
+</LinearLayout>

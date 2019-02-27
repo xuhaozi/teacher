@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--加入fitsSystemWindows这一句是为了保证在安卓5.0以后的版本中软键盘依旧不遮挡登录按钮-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   >
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:background="#F1F0F5"
+            android:layout_weight="8"
+            android:layout_width="0dip"
+            android:layout_height="match_parent">
+
+
+            <VideoView
+                android:layout_margin="75dp"
+                android:id="@+id/videoView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:background="#E7E6EB"
+            android:layout_weight="3"
+            android:layout_width="0dip"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="视频列表"
+                    android:textColor="#ff231f3a"
+                    android:textSize="18sp"
+                    />
+                <View
+                    android:layout_marginRight="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:background="#C8C8C8"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"></View>
+
+
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/right_video_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></ListView>
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

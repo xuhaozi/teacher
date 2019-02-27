@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="white">#ffffff</color>
+    <color name="btn_blue">#2DD1CA</color>
+
+    <color name="background">#F7F8F9</color>
+    <color name="teaching_item_title">#2E2E2E</color>
+    <color name="home_item_title">#292929</color>
+    <color name="home_item_author">#B7B7B7</color>
+
+
+    <color name="Violet">#231F3A</color>
+    <color name="transparent">#000000</color>
+    <color name="home_Theborder_Unchecked">#ff231f3a</color>
+    <color name="home_Theborder_Selection">#DB1E83</color>
+
+</resources>

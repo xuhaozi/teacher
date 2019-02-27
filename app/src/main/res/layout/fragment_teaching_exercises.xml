@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--加入fitsSystemWindows这一句是为了保证在安卓5.0以后的版本中软键盘依旧不遮挡登录按钮-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F1F0F5">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:layout_centerHorizontal="true"
+            android:id="@+id/btn_title"
+            android:layout_width="250dp"
+            android:layout_height="40dip"
+            android:layout_marginTop="430dp"
+            android:background="@drawable/btn_brank"
+            android:gravity="center"
+            android:text="登录"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+
+        <LinearLayout
+            android:layout_marginTop="90dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/icon_imgdemo2"
+            android:layout_width="450dp"
+            android:gravity="center"
+            android:layout_height="450dp">
+
+            <com.example.admin.musicclassroom.widget.CustomRoundAngleImageView
+                android:layout_width="350dp"
+                android:layout_marginBottom="25dp"
+                android:id="@+id/iv_img"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/icon_default_bg"
+                android:layout_height="320dp" />
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_alignParentBottom="true"
+            android:src="@mipmap/icon_imgdemo1"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="50dp"
+            android:layout_height="wrap_content"></ImageView>
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
