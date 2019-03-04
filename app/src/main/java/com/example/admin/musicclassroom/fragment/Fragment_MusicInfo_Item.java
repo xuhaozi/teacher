@@ -49,6 +49,9 @@ public class Fragment_MusicInfo_Item extends mFragment {
     @ViewInject(R.id.tv_title)
     private TextView tv_title;
 
+    @ViewInject(R.id.iv_return)
+    private ImageView iv_return;
+
     @ViewInject(R.id.btn_music)
     private Button btn_music;
     @ViewInject(R.id.btn_video)
@@ -258,6 +261,15 @@ public class Fragment_MusicInfo_Item extends mFragment {
     private void ll_drawingboard_gerenClick(View v) {
         changeCurrBtn(4);
         switchContent(fragment_Teaching_Exercises);
+    }
+
+
+    //返回
+    @Event(value = R.id.iv_return, type = View.OnClickListener.class)
+    private void iv_returnClick(View v) {
+        Fragment videoFragment = new Fragment_Teaching_Item();
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction.add(R.id.video_fragment, videoFragment).commit();
     }
 
 

@@ -3,9 +3,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F1F0F5">
+    android:background="@color/white"
+    >
+
+
+
+
+
 
     <LinearLayout
+
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -301,18 +308,13 @@
                 />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_marginRight="30dp"
-            android:layout_marginLeft="30dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:src="@drawable/icon_puzi_bannar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
 
-
+        <com.example.admin.musicclassroom.widget.MusicView
+            android:id="@+id/music_view"
+            android:layout_width="1950px"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="600px"
+            />
         <LinearLayout
             android:layout_gravity="bottom"
             android:layout_width="match_parent"
@@ -720,6 +722,8 @@
 
 
     </LinearLayout>
+
+
 
 
 

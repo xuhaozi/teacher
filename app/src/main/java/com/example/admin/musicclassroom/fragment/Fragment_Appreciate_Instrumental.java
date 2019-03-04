@@ -39,8 +39,6 @@ public class Fragment_Appreciate_Instrumental extends mFragment {
     //器乐
     private View views;
 
-
-
     @ViewInject(R.id.tv_Choice)
     private TextView tv_Choice;
 
@@ -84,6 +82,7 @@ public class Fragment_Appreciate_Instrumental extends mFragment {
         // 哪个高亮
         arr_text[index].setTextColor(getResources().getColor(R.color.home_Theborder_Selection));
     }
+
 
     /**
      * 通过国家获取音乐风格

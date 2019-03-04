@@ -1,0 +1,1414 @@
+package com.example.admin.musicclassroom.Utils;
+
+import android.content.Context;
+
+
+import com.example.admin.musicclassroom.musicentity.beans.Articulations;
+import com.example.admin.musicclassroom.musicentity.beans.Attributes;
+import com.example.admin.musicclassroom.musicentity.beans.BarLine;
+import com.example.admin.musicclassroom.musicentity.beans.Beam;
+import com.example.admin.musicclassroom.musicentity.beans.Clef;
+import com.example.admin.musicclassroom.musicentity.beans.Credit;
+import com.example.admin.musicclassroom.musicentity.beans.CreditWords;
+import com.example.admin.musicclassroom.musicentity.beans.Defaults;
+import com.example.admin.musicclassroom.musicentity.beans.Direction;
+import com.example.admin.musicclassroom.musicentity.beans.DirectionType;
+import com.example.admin.musicclassroom.musicentity.beans.Dot;
+import com.example.admin.musicclassroom.musicentity.beans.Dynamics;
+import com.example.admin.musicclassroom.musicentity.beans.Encoding;
+import com.example.admin.musicclassroom.musicentity.beans.Fermata;
+import com.example.admin.musicclassroom.musicentity.beans.Forward;
+import com.example.admin.musicclassroom.musicentity.beans.Identification;
+import com.example.admin.musicclassroom.musicentity.beans.Key;
+import com.example.admin.musicclassroom.musicentity.beans.Lyric;
+import com.example.admin.musicclassroom.musicentity.beans.LyricFont;
+import com.example.admin.musicclassroom.musicentity.beans.Measure;
+import com.example.admin.musicclassroom.musicentity.beans.MidiDevice;
+import com.example.admin.musicclassroom.musicentity.beans.MidiInstrument;
+import com.example.admin.musicclassroom.musicentity.beans.Notations;
+import com.example.admin.musicclassroom.musicentity.beans.Note;
+import com.example.admin.musicclassroom.musicentity.beans.Ornaments;
+import com.example.admin.musicclassroom.musicentity.beans.PageLayout;
+import com.example.admin.musicclassroom.musicentity.beans.PageMargins;
+import com.example.admin.musicclassroom.musicentity.beans.Part;
+import com.example.admin.musicclassroom.musicentity.beans.PartList;
+import com.example.admin.musicclassroom.musicentity.beans.Pitch;
+import com.example.admin.musicclassroom.musicentity.beans.Print;
+import com.example.admin.musicclassroom.musicentity.beans.Repeat;
+import com.example.admin.musicclassroom.musicentity.beans.Scaling;
+import com.example.admin.musicclassroom.musicentity.beans.ScoreInstrument;
+import com.example.admin.musicclassroom.musicentity.beans.ScorePart;
+import com.example.admin.musicclassroom.musicentity.beans.ScorePartWise;
+import com.example.admin.musicclassroom.musicentity.beans.Slur;
+import com.example.admin.musicclassroom.musicentity.beans.Sound;
+import com.example.admin.musicclassroom.musicentity.beans.Supports;
+import com.example.admin.musicclassroom.musicentity.beans.SystemLayout;
+import com.example.admin.musicclassroom.musicentity.beans.SystemMargins;
+import com.example.admin.musicclassroom.musicentity.beans.Time;
+import com.example.admin.musicclassroom.musicentity.beans.Wedge;
+import com.example.admin.musicclassroom.musicentity.beans.Words;
+import com.example.admin.musicclassroom.musicentity.beans.Work;
+import com.example.admin.musicclassroom.musicentity.beans.WorkFont;
+
+import org.dom4j.Attribute;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
+
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+/**
+ * Created by Administrator on 2017/6/28.
+ */
+
+public class XMLParser {
+    private InputStream inputStream;
+    private Context context;
+    private File file;
+    public XMLParser(File file, Context context) {
+        this.file = file;
+        this.context = context;
+    }
+
+    public XMLParser(InputStream inputStream, Context context) {
+        this.inputStream = inputStream;
+        this.context = context;
+    }
+
+    /**
+     * 读取xml文件
+     */
+    public ScorePartWise readFromXml() {
+
+        SAXReader reader = new SAXReader();
+        String xml="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<!DOCTYPE score-partwise PUBLIC \"-//Recordare//DTD MusicXML 3.0 Partwise//EN\" \"http://www.musicxml.org/dtds/partwise.dtd\">\n" +
+                "<score-partwise>\n" +
+                "  <work>\n" +
+                "    <work-title>布谷</work-title>\n" +
+                "    </work>\n" +
+                "  <identification>\n" +
+                "    <encoding>\n" +
+                "      <software>MuseScore 2.0.2</software>\n" +
+                "      <encoding-date>2018-12-18</encoding-date>\n" +
+                "      <supports element=\"accidental\" type=\"yes\"/>\n" +
+                "      <supports element=\"beam\" type=\"yes\"/>\n" +
+                "      <supports element=\"print\" attribute=\"new-page\" type=\"yes\" value=\"yes\"/>\n" +
+                "      <supports element=\"print\" attribute=\"new-system\" type=\"yes\" value=\"yes\"/>\n" +
+                "      <supports element=\"stem\" type=\"yes\"/>\n" +
+                "      </encoding>\n" +
+                "    </identification>\n" +
+                "  <defaults>\n" +
+                "    <scaling>\n" +
+                "      <millimeters>7.05556</millimeters>\n" +
+                "      <tenths>40</tenths>\n" +
+                "      </scaling>\n" +
+                "    <page-layout>\n" +
+                "      <page-height>1683.36</page-height>\n" +
+                "      <page-width>1190.88</page-width>\n" +
+                "      <page-margins type=\"even\">\n" +
+                "        <left-margin>56.6929</left-margin>\n" +
+                "        <right-margin>56.6929</right-margin>\n" +
+                "        <top-margin>56.6929</top-margin>\n" +
+                "        <bottom-margin>113.386</bottom-margin>\n" +
+                "        </page-margins>\n" +
+                "      <page-margins type=\"odd\">\n" +
+                "        <left-margin>56.6929</left-margin>\n" +
+                "        <right-margin>56.6929</right-margin>\n" +
+                "        <top-margin>56.6929</top-margin>\n" +
+                "        <bottom-margin>113.386</bottom-margin>\n" +
+                "        </page-margins>\n" +
+                "      </page-layout>\n" +
+                "    <word-font font-family=\"FreeSerif\" font-size=\"10\"/>\n" +
+                "    <lyric-font font-family=\"FreeSerif\" font-size=\"11\"/>\n" +
+                "    </defaults>\n" +
+                "  <credit page=\"1\">\n" +
+                "    <credit-words default-x=\"595.44\" default-y=\"1626.67\" justify=\"center\" valign=\"top\" font-size=\"24\">布谷</credit-words>\n" +
+                "    </credit>\n" +
+                "  <part-list>\n" +
+                "    <score-part id=\"P1\">\n" +
+                "      <part-name>Piano</part-name>\n" +
+                "      <part-abbreviation>Pno.</part-abbreviation>\n" +
+                "      <score-instrument id=\"P1-I1\">\n" +
+                "        <instrument-name>Piano</instrument-name>\n" +
+                "        </score-instrument>\n" +
+                "      <midi-device id=\"P1-I1\" port=\"1\"></midi-device>\n" +
+                "      <midi-instrument id=\"P1-I1\">\n" +
+                "        <midi-channel>1</midi-channel>\n" +
+                "        <midi-program>1</midi-program>\n" +
+                "        <volume>78.7402</volume>\n" +
+                "        <pan>0</pan>\n" +
+                "        </midi-instrument>\n" +
+                "      </score-part>\n" +
+                "    </part-list>\n" +
+                "  <part id=\"P1\">\n" +
+                "    <measure number=\"1\" width=\"205.17\">\n" +
+                "      <print>\n" +
+                "        <system-layout>\n" +
+                "          <system-margins>\n" +
+                "            <left-margin>-0.00</left-margin>\n" +
+                "            <right-margin>-0.00</right-margin>\n" +
+                "            </system-margins>\n" +
+                "          <top-system-distance>170.00</top-system-distance>\n" +
+                "          </system-layout>\n" +
+                "        </print>\n" +
+                "      <attributes>\n" +
+                "        <divisions>1</divisions>\n" +
+                "        <key>\n" +
+                "          <fifths>-1</fifths>\n" +
+                "          </key>\n" +
+                "        <time>\n" +
+                "          <beats>3</beats>\n" +
+                "          <beat-type>4</beat-type>\n" +
+                "          </time>\n" +
+                "        <clef>\n" +
+                "          <sign>G</sign>\n" +
+                "          <line>2</line>\n" +
+                "          </clef>\n" +
+                "        </attributes>\n" +
+                "      <note default-x=\"88.93\" default-y=\"-15.00\">\n" +
+                "        <pitch>\n" +
+                "          <step>C</step>\n" +
+                "          <octave>5</octave>\n" +
+                "          </pitch>\n" +
+                "        <duration>1</duration>\n" +
+                "        <voice>1</voice>\n" +
+                "        <type>quarter</type>\n" +
+                "        <stem>down</stem>\n" +
+                "        <lyric number=\"2\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>布</text>\n" +
+                "          </lyric>\n" +
+                "        <lyric number=\"4\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>布</text>\n" +
+                "          </lyric>\n" +
+                "        </note>\n" +
+                "      <note default-x=\"124.73\" default-y=\"-25.00\">\n" +
+                "        <pitch>\n" +
+                "          <step>A</step>\n" +
+                "          <octave>4</octave>\n" +
+                "          </pitch>\n" +
+                "        <duration>1</duration>\n" +
+                "        <voice>1</voice>\n" +
+                "        <type>quarter</type>\n" +
+                "        <stem>up</stem>\n" +
+                "        <lyric number=\"2\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>谷！</text>\n" +
+                "          </lyric>\n" +
+                "        <lyric number=\"4\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>谷！</text>\n" +
+                "          </lyric>\n" +
+                "        </note>\n" +
+                "      <note>\n" +
+                "        <rest/>\n" +
+                "        <duration>1</duration>\n" +
+                "        <voice>1</voice>\n" +
+                "        <type>quarter</type>\n" +
+                "        </note>\n" +
+                "      </measure>\n" +
+                "    <measure number=\"2\" width=\"136.64\">\n" +
+                "      <note default-x=\"16.66\" default-y=\"-15.00\">\n" +
+                "        <pitch>\n" +
+                "          <step>C</step>\n" +
+                "          <octave>5</octave>\n" +
+                "          </pitch>\n" +
+                "        <duration>1</duration>\n" +
+                "        <voice>1</voice>\n" +
+                "        <type>quarter</type>\n" +
+                "        <stem>down</stem>\n" +
+                "        <lyric number=\"2\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>布</text>\n" +
+                "          </lyric>\n" +
+                "        <lyric number=\"4\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>布</text>\n" +
+                "          </lyric>\n" +
+                "        </note>\n" +
+                "      <note default-x=\"54.33\" default-y=\"-25.00\">\n" +
+                "        <pitch>\n" +
+                "          <step>A</step>\n" +
+                "          <octave>4</octave>\n" +
+                "          </pitch>\n" +
+                "        <duration>1</duration>\n" +
+                "        <voice>1</voice>\n" +
+                "        <type>quarter</type>\n" +
+                "        <stem>up</stem>\n" +
+                "        <lyric number=\"2\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>谷！</text>\n" +
+                "          </lyric>\n" +
+                "        <lyric number=\"4\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>谷！</text>\n" +
+                "          </lyric>\n" +
+                "        </note>\n" +
+                "      <note>\n" +
+                "        <rest/>\n" +
+                "        <duration>1</duration>\n" +
+                "        <voice>1</voice>\n" +
+                "        <type>quarter</type>\n" +
+                "        </note>\n" +
+                "      </measure>\n" +
+                "    <measure number=\"3\" width=\"125.96\">\n" +
+                "      <note default-x=\"16.66\" default-y=\"-30.00\">\n" +
+                "        <pitch>\n" +
+                "          <step>G</step>\n" +
+                "          <octave>4</octave>\n" +
+                "          </pitch>\n" +
+                "        <duration>1</duration>\n" +
+                "        <voice>1</voice>\n" +
+                "        <type>quarter</type>\n" +
+                "        <stem>up</stem>\n" +
+                "        <lyric number=\"2\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>在</text>\n" +
+                "          </lyric>\n" +
+                "        <lyric number=\"4\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>不</text>\n" +
+                "          </lyric>\n" +
+                "        </note>\n" +
+                "      <note default-x=\"52.56\" default-y=\"-35.00\">\n" +
+                "        <pitch>\n" +
+                "          <step>F</step>\n" +
+                "          <octave>4</octave>\n" +
+                "          </pitch>\n" +
+                "        <duration>1</duration>\n" +
+                "        <voice>1</voice>\n" +
+                "        <type>quarter</type>\n" +
+                "        <stem>up</stem>\n" +
+                "        <lyric number=\"2\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>林</text>\n" +
+                "          </lyric>\n" +
+                "        <lyric number=\"4\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>停</text>\n" +
+                "          </lyric>\n" +
+                "        </note>\n" +
+                "      <note default-x=\"88.46\" default-y=\"-30.00\">\n" +
+                "        <pitch>\n" +
+                "          <step>G</step>\n" +
+                "          <octave>4</octave>\n" +
+                "          </pitch>\n" +
+                "        <duration>1</duration>\n" +
+                "        <voice>1</voice>\n" +
+                "        <type>quarter</type>\n" +
+                "        <stem>up</stem>\n" +
+                "        <lyric number=\"2\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>中</text>\n" +
+                "          </lyric>\n" +
+                "        <lyric number=\"4\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>地</text>\n" +
+                "          </lyric>\n" +
+                "        </note>\n" +
+                "      </measure>\n" +
+                "    <measure number=\"4\" width=\"110.89\">\n" +
+                "      <note default-x=\"17.02\" default-y=\"-35.00\">\n" +
+                "        <pitch>\n" +
+                "          <step>F</step>\n" +
+                "          <octave>4</octave>\n" +
+                "          </pitch>\n" +
+                "        <duration>2</duration>\n" +
+                "        <voice>1</voice>\n" +
+                "        <type>half</type>\n" +
+                "        <stem>up</stem>\n" +
+                "        <lyric number=\"2\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>唱，</text>\n" +
+                "          </lyric>\n" +
+                "        <lyric number=\"4\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>唱，</text>\n" +
+                "          </lyric>\n" +
+                "        </note>\n" +
+                "      <note>\n" +
+                "        <rest/>\n" +
+                "        <duration>1</duration>\n" +
+                "        <voice>1</voice>\n" +
+                "        <type>quarter</type>\n" +
+                "        </note>\n" +
+                "      </measure>\n" +
+                "    <measure number=\"5\" width=\"125.96\">\n" +
+                "      <note default-x=\"16.66\" default-y=\"-30.00\">\n" +
+                "        <pitch>\n" +
+                "          <step>G</step>\n" +
+                "          <octave>4</octave>\n" +
+                "          </pitch>\n" +
+                "        <duration>1</duration>\n" +
+                "        <voice>1</voice>\n" +
+                "        <type>quarter</type>\n" +
+                "        <stem>up</stem>\n" +
+                "        <lyric number=\"2\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>让</text>\n" +
+                "          </lyric>\n" +
+                "        <lyric number=\"4\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>歌</text>\n" +
+                "          </lyric>\n" +
+                "        </note>\n" +
+                "      <note default-x=\"52.56\" default-y=\"-30.00\">\n" +
+                "        <pitch>\n" +
+                "          <step>G</step>\n" +
+                "          <octave>4</octave>\n" +
+                "          </pitch>\n" +
+                "        <duration>1</duration>\n" +
+                "        <voice>1</voice>\n" +
+                "        <type>quarter</type>\n" +
+                "        <stem>up</stem>\n" +
+                "        <lyric number=\"2\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>我</text>\n" +
+                "          </lyric>\n" +
+                "        <lyric number=\"4\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>声</text>\n" +
+                "          </lyric>\n" +
+                "        </note>\n" +
+                "      <note default-x=\"88.46\" default-y=\"-25.00\">\n" +
+                "        <pitch>\n" +
+                "          <step>A</step>\n" +
+                "          <octave>4</octave>\n" +
+                "          </pitch>\n" +
+                "        <duration>1</duration>\n" +
+                "        <voice>1</voice>\n" +
+                "        <type>quarter</type>\n" +
+                "        <stem>up</stem>\n" +
+                "        <lyric number=\"2\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>们</text>\n" +
+                "          </lyric>\n" +
+                "        </note>\n" +
+                "      </measure>\n" +
+                "    <measure number=\"6\" width=\"123.46\">\n" +
+                "      <note default-x=\"16.27\" default-y=\"-20.00\">\n" +
+                "        <pitch>\n" +
+                "          <step>B</step>\n" +
+                "          <alter>-1</alter>\n" +
+                "          <octave>4</octave>\n" +
+                "          </pitch>\n" +
+                "        <duration>2</duration>\n" +
+                "        <voice>1</voice>\n" +
+                "        <type>half</type>\n" +
+                "        <stem>down</stem>\n" +
+                "        <lyric number=\"2\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>唱</text>\n" +
+                "          </lyric>\n" +
+                "        <lyric number=\"4\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>穿</text>\n" +
+                "          </lyric>\n" +
+                "        </note>\n" +
+                "      <note default-x=\"72.27\" default-y=\"-30.00\">\n" +
+                "        <pitch>\n" +
+                "          <step>G</step>\n" +
+                "          <octave>4</octave>\n" +
+                "          </pitch>\n" +
+                "        <duration>1</duration>\n" +
+                "        <voice>1</voice>\n" +
+                "        <type>quarter</type>\n" +
+                "        <stem>up</stem>\n" +
+                "        <lyric number=\"2\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>吧，</text>\n" +
+                "          </lyric>\n" +
+                "        <lyric number=\"4\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>过</text>\n" +
+                "          </lyric>\n" +
+                "        </note>\n" +
+                "      </measure>\n" +
+                "    <measure number=\"7\" width=\"125.96\">\n" +
+                "      <note default-x=\"16.66\" default-y=\"-25.00\">\n" +
+                "        <pitch>\n" +
+                "          <step>A</step>\n" +
+                "          <octave>4</octave>\n" +
+                "          </pitch>\n" +
+                "        <duration>1</duration>\n" +
+                "        <voice>1</voice>\n" +
+                "        <type>quarter</type>\n" +
+                "        <stem>up</stem>\n" +
+                "        <lyric number=\"2\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>让</text>\n" +
+                "          </lyric>\n" +
+                "        <lyric number=\"4\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>田</text>\n" +
+                "          </lyric>\n" +
+                "        </note>\n" +
+                "      <note default-x=\"52.56\" default-y=\"-25.00\">\n" +
+                "        <pitch>\n" +
+                "          <step>A</step>\n" +
+                "          <octave>4</octave>\n" +
+                "          </pitch>\n" +
+                "        <duration>1</duration>\n" +
+                "        <voice>1</voice>\n" +
+                "        <type>quarter</type>\n" +
+                "        <stem>up</stem>\n" +
+                "        <lyric number=\"2\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>我</text>\n" +
+                "          </lyric>\n" +
+                "        <lyric number=\"4\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>野</text>\n" +
+                "          </lyric>\n" +
+                "        </note>\n" +
+                "      <note default-x=\"88.46\" default-y=\"-20.00\">\n" +
+                "        <pitch>\n" +
+                "          <step>B</step>\n" +
+                "          <alter>-1</alter>\n" +
+                "          <octave>4</octave>\n" +
+                "          </pitch>\n" +
+                "        <duration>1</duration>\n" +
+                "        <voice>1</voice>\n" +
+                "        <type>quarter</type>\n" +
+                "        <stem>down</stem>\n" +
+                "        <lyric number=\"2\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>们</text>\n" +
+                "          </lyric>\n" +
+                "        <lyric number=\"4\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>和</text>\n" +
+                "          </lyric>\n" +
+                "        </note>\n" +
+                "      </measure>\n" +
+                "    <measure number=\"8\" width=\"123.46\">\n" +
+                "      <note default-x=\"16.27\" default-y=\"-15.00\">\n" +
+                "        <pitch>\n" +
+                "          <step>C</step>\n" +
+                "          <octave>5</octave>\n" +
+                "          </pitch>\n" +
+                "        <duration>2</duration>\n" +
+                "        <voice>1</voice>\n" +
+                "        <type>half</type>\n" +
+                "        <stem>down</stem>\n" +
+                "        <lyric number=\"2\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>跳</text>\n" +
+                "          </lyric>\n" +
+                "        <lyric number=\"4\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>村</text>\n" +
+                "          </lyric>\n" +
+                "        </note>\n" +
+                "      <note default-x=\"72.27\" default-y=\"-25.00\">\n" +
+                "        <pitch>\n" +
+                "          <step>A</step>\n" +
+                "          <octave>4</octave>\n" +
+                "          </pitch>\n" +
+                "        <duration>1</duration>\n" +
+                "        <voice>1</voice>\n" +
+                "        <type>quarter</type>\n" +
+                "        <stem>up</stem>\n" +
+                "        <lyric number=\"2\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>吧，</text>\n" +
+                "          </lyric>\n" +
+                "        <lyric number=\"4\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>庄，</text>\n" +
+                "          </lyric>\n" +
+                "        </note>\n" +
+                "      </measure>\n" +
+                "    <measure number=\"9\" width=\"291.86\">\n" +
+                "      <print new-system=\"yes\">\n" +
+                "        <system-layout>\n" +
+                "          <system-margins>\n" +
+                "            <left-margin>-0.00</left-margin>\n" +
+                "            <right-margin>0.00</right-margin>\n" +
+                "            </system-margins>\n" +
+                "          <system-distance>221.50</system-distance>\n" +
+                "          </system-layout>\n" +
+                "        </print>\n" +
+                "      <note default-x=\"67.49\" default-y=\"-15.00\">\n" +
+                "        <pitch>\n" +
+                "          <step>C</step>\n" +
+                "          <octave>5</octave>\n" +
+                "          </pitch>\n" +
+                "        <duration>2</duration>\n" +
+                "        <voice>1</voice>\n" +
+                "        <type>half</type>\n" +
+                "        <stem>down</stem>\n" +
+                "        <lyric number=\"2\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>我</text>\n" +
+                "          </lyric>\n" +
+                "        <lyric number=\"4\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>歌</text>\n" +
+                "          </lyric>\n" +
+                "        </note>\n" +
+                "      <note default-x=\"204.73\" default-y=\"-25.00\">\n" +
+                "        <pitch>\n" +
+                "          <step>A</step>\n" +
+                "          <octave>4</octave>\n" +
+                "          </pitch>\n" +
+                "        <duration>1</duration>\n" +
+                "        <voice>1</voice>\n" +
+                "        <type>quarter</type>\n" +
+                "        <stem>up</stem>\n" +
+                "        <lyric number=\"2\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>的</text>\n" +
+                "          </lyric>\n" +
+                "        <lyric number=\"4\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>唱</text>\n" +
+                "          </lyric>\n" +
+                "        </note>\n" +
+                "      </measure>\n" +
+                "    <measure number=\"10\" width=\"244.39\">\n" +
+                "      <note default-x=\"16.27\" default-y=\"-15.00\">\n" +
+                "        <pitch>\n" +
+                "          <step>C</step>\n" +
+                "          <octave>5</octave>\n" +
+                "          </pitch>\n" +
+                "        <duration>2</duration>\n" +
+                "        <voice>1</voice>\n" +
+                "        <type>half</type>\n" +
+                "        <stem>down</stem>\n" +
+                "        <lyric number=\"2\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>歌</text>\n" +
+                "          </lyric>\n" +
+                "        <lyric number=\"4\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>生</text>\n" +
+                "          </lyric>\n" +
+                "        </note>\n" +
+                "      <note default-x=\"155.82\" default-y=\"-25.00\">\n" +
+                "        <pitch>\n" +
+                "          <step>A</step>\n" +
+                "          <octave>4</octave>\n" +
+                "          </pitch>\n" +
+                "        <duration>1</duration>\n" +
+                "        <voice>1</voice>\n" +
+                "        <type>quarter</type>\n" +
+                "        <stem>up</stem>\n" +
+                "        <lyric number=\"2\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>声</text>\n" +
+                "          </lyric>\n" +
+                "        <lyric number=\"4\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>活</text>\n" +
+                "          </lyric>\n" +
+                "        </note>\n" +
+                "      </measure>\n" +
+                "    <measure number=\"11\" width=\"269.39\">\n" +
+                "      <note default-x=\"16.66\" default-y=\"-20.00\">\n" +
+                "        <pitch>\n" +
+                "          <step>B</step>\n" +
+                "          <alter>-1</alter>\n" +
+                "          <octave>4</octave>\n" +
+                "          </pitch>\n" +
+                "        <duration>1</duration>\n" +
+                "        <voice>1</voice>\n" +
+                "        <type>quarter</type>\n" +
+                "        <stem>down</stem>\n" +
+                "        <lyric number=\"2\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>多</text>\n" +
+                "          </lyric>\n" +
+                "        <lyric number=\"4\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>多</text>\n" +
+                "          </lyric>\n" +
+                "        </note>\n" +
+                "      <note default-x=\"100.37\" default-y=\"-25.00\">\n" +
+                "        <pitch>\n" +
+                "          <step>A</step>\n" +
+                "          <octave>4</octave>\n" +
+                "          </pitch>\n" +
+                "        <duration>1</duration>\n" +
+                "        <voice>1</voice>\n" +
+                "        <type>quarter</type>\n" +
+                "        <stem>up</stem>\n" +
+                "        <lyric number=\"2\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>么</text>\n" +
+                "          </lyric>\n" +
+                "        <lyric number=\"4\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>么</text>\n" +
+                "          </lyric>\n" +
+                "        </note>\n" +
+                "      <note default-x=\"184.08\" default-y=\"-30.00\">\n" +
+                "        <pitch>\n" +
+                "          <step>G</step>\n" +
+                "          <octave>4</octave>\n" +
+                "          </pitch>\n" +
+                "        <duration>1</duration>\n" +
+                "        <voice>1</voice>\n" +
+                "        <type>quarter</type>\n" +
+                "        <stem>up</stem>\n" +
+                "        <lyric number=\"2\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>美</text>\n" +
+                "          </lyric>\n" +
+                "        <lyric number=\"4\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>美</text>\n" +
+                "          </lyric>\n" +
+                "        </note>\n" +
+                "      </measure>\n" +
+                "    <measure number=\"12\" width=\"271.85\">\n" +
+                "      <note default-x=\"17.02\" default-y=\"-35.00\">\n" +
+                "        <pitch>\n" +
+                "          <step>F</step>\n" +
+                "          <octave>4</octave>\n" +
+                "          </pitch>\n" +
+                "        <duration>2</duration>\n" +
+                "        <voice>1</voice>\n" +
+                "        <type>half</type>\n" +
+                "        <stem>up</stem>\n" +
+                "        <lyric number=\"2\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>妙。</text>\n" +
+                "          </lyric>\n" +
+                "        <lyric number=\"4\">\n" +
+                "          <syllabic>single</syllabic>\n" +
+                "          <text>好。</text>\n" +
+                "          </lyric>\n" +
+                "        </note>\n" +
+                "      <note>\n" +
+                "        <rest/>\n" +
+                "        <duration>1</duration>\n" +
+                "        <voice>1</voice>\n" +
+                "        <type>quarter</type>\n" +
+                "        </note>\n" +
+                "      <barline location=\"right\">\n" +
+                "        <bar-style>light-heavy</bar-style>\n" +
+                "        <repeat direction=\"backward\"/>\n" +
+                "        </barline>\n" +
+                "      </measure>\n" +
+                "    </part>\n" +
+                "  </score-partwise>\n";
+
+        Document document = null;
+        try {
+            document = reader.read(new ByteArrayInputStream(xml.getBytes("utf-8")));
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+//        Document document= reader.read(new FileInputStream(file));
+        //得到根节点
+        Element rootElement = document.getRootElement();
+        ScorePartWise scorePartWise = getScorePartWise(rootElement);
+        return scorePartWise;
+    }
+
+    /**
+     * @param rootElement
+     * @return
+     */
+    private ScorePartWise getScorePartWise(Element rootElement) {
+        ScorePartWise scorePartWise = null;
+        Element workelement = rootElement.element(Constact.WORK);
+        Element work_titleelement = workelement.element(Constact.WORKTITLE);
+        Element identificationelement = rootElement.element(Constact.IDENTIFICATION);
+        List creditelementslist = rootElement.elements(Constact.CREDIT);
+        //创建根目录的对象
+        if (rootElement != null) {
+            scorePartWise = new ScorePartWise();
+        }
+        getTitle(scorePartWise, workelement, work_titleelement);
+        getIdentification(rootElement, scorePartWise, identificationelement);
+        getCredit(scorePartWise, creditelementslist);
+        Element partlistelement = rootElement.element(Constact.PARTLIST);
+        getPartList(scorePartWise, partlistelement);
+        Element partelement = rootElement.element(Constact.PART);
+        getPart(scorePartWise, partelement);
+
+        return scorePartWise;
+    }
+
+    /**
+     * 得到最后一部分对象
+     *
+     * @param scorePartWise
+     * @param partelement
+     */
+
+    private void getPart(ScorePartWise scorePartWise, Element partelement) {
+        if (partelement != null) {
+            Part part = new Part();
+            scorePartWise.setPart(part);
+            List measureelements = partelement.elements(Constact.MEASURE);
+            if (measureelements != null && measureelements.size() > 0) {
+                List<Measure> mlist = new ArrayList<>();
+                part.setMeasureList(mlist);
+                for (Iterator it = measureelements.iterator(); it.hasNext(); ) {
+                    Element meanext = (Element) it.next();
+                    Measure measure = new Measure();
+                    mlist.add(measure);
+                    if (meanext.attribute(Constact.NUMBER) != null) {
+                        measure.setNumber(Integer.parseInt(meanext.attribute(Constact.NUMBER).getText()));
+                    }
+
+                    if (meanext.attribute(Constact.WIDTH) != null) {
+                        measure.setWidth(Float.parseFloat(meanext.attribute(Constact.WIDTH).getText()));
+                    }
+                    Element printelement = meanext.element(Constact.PRINT);
+                    if (printelement != null) {
+                        Print print = new Print();
+                        measure.setPrint(print);
+                        Element systemlayoutelement = printelement.element(Constact.SYSTEMLAYOUT);
+                        if (systemlayoutelement != null) {
+                            SystemLayout systemLayout = new SystemLayout();
+                            print.setSystemLayout(systemLayout);
+                            if (systemlayoutelement.element(Constact.TOPSYSTEMDISTANCE) != null) {
+                                systemLayout.setTopSystemDistance(Float.parseFloat(systemlayoutelement.element(Constact.TOPSYSTEMDISTANCE).getText()));
+                            }
+                            Element systemMarginselement = systemlayoutelement.element(Constact.SYSTEMMARGINS);
+                            if (systemMarginselement != null) {
+                                SystemMargins systemMargins = new SystemMargins();
+                                systemLayout.setSystemMargins(systemMargins);
+                                systemMargins.setLeftMargin(Float.parseFloat(systemMarginselement.element(Constact.LEFTMARGIN).getText()));
+                                systemMargins.setRightMargin(Float.parseFloat(systemMarginselement.element(Constact.RIGHTMARGIN).getText()));
+                            }
+                        }
+                    }
+
+                    Element barlineelement = meanext.element(Constact.BARLINE);
+                    if (barlineelement != null) {
+                        BarLine barLine = new BarLine();
+                        measure.setBarLine(barLine);
+//                        Element barlineelement = meanext.element(Constact.BARLINE);
+                        Attribute locationattribute = barlineelement.attribute(Constact.LOCATION);
+                        if (locationattribute != null) {
+                            barLine.setLocation(locationattribute.getText());
+                        }
+                        Element barstyleelement = barlineelement.element(Constact.BARSTYLE);
+                        if (barstyleelement != null) {
+                            barLine.setBarStyle(barstyleelement.getText());
+                        }
+                        Element repeatelement = barlineelement.element(Constact.REPEAT);
+                        if (repeatelement != null) {
+                            Repeat repeat = new Repeat();
+                            barLine.setRepeat(repeat);
+                            Attribute directionattribute = repeatelement.attribute(Constact.DIRECTION);
+                            if (directionattribute != null) {
+                                repeat.setDirection(directionattribute.getText());
+                            }
+                        }
+                    }
+
+                    if (meanext.element(Constact.FORWARD) != null) {
+                        Forward forward = new Forward();
+                        measure.setForward(forward);
+                        Element forwardelement = meanext.element(Constact.FORWARD);
+                        if (forwardelement.element(Constact.DURATION) != null) {
+                            forward.setDuration(Integer.parseInt(forwardelement.element(Constact.DURATION).getText()));
+                        }
+                    }
+
+                    List<Element> directionelements = meanext.elements(Constact.DIRECTION);
+                    if (directionelements != null && directionelements.size() > 0) {
+                        List<Direction> directionList = new ArrayList<>();
+                        measure.setDirection(directionList);
+                        for (Iterator itera = directionelements.iterator(); itera.hasNext(); ) {
+                            Element directmentnext = (Element) itera.next();
+                            if (directmentnext != null) {
+                                Direction direction = new Direction();
+                                directionList.add(direction);
+                                if (directmentnext.element(Constact.SOUND) != null) {
+                                    Element soundelement = directmentnext.element(Constact.SOUND);
+                                    Sound sound = new Sound();
+                                    direction.setSound(sound);
+                                    if (soundelement.attribute(Constact.DYNAMICS) != null) {
+                                        sound.setDynamics(soundelement.attribute(Constact.DYNAMICS).getText());
+                                    }
+                                    if (soundelement.attribute(Constact.SEGNO) != null) {
+                                        sound.setSegno(soundelement.attribute(Constact.SEGNO).getText());
+                                    }
+                                    if (soundelement.attribute(Constact.CODA) != null) {
+                                        sound.setCoda(soundelement.attribute(Constact.CODA).getText());
+                                    }
+                                    if (soundelement.attribute(Constact.FINE) != null) {
+                                        sound.setFine(soundelement.attribute(Constact.FINE).getText());
+                                    }
+                                    if (soundelement.attribute(Constact.TOCODA) != null) {
+                                        sound.setTocoda(soundelement.attribute(Constact.TOCODA).getText());
+                                    }
+                                    if (soundelement.attribute(Constact.DACAPO) != null) {
+                                        sound.setDacapo(soundelement.attribute(Constact.DACAPO).getText());
+                                    }
+                                    if (soundelement.attribute(Constact.DALSEGNO) != null) {
+                                        sound.setDalsegno(soundelement.attribute(Constact.DALSEGNO).getText());
+                                    }
+                                }
+                                if (directmentnext.elements(Constact.DIRECTIONTYPE) != null) {
+                                    Element directionTypeelements = directmentnext.element(Constact.DIRECTIONTYPE);
+                                    DirectionType directionType = new DirectionType();
+                                    direction.setDirectionType(directionType);
+                                    if (directmentnext.attribute(Constact.PLACEMENT) != null) {
+                                        direction.setPlacement(directmentnext.attribute(Constact.PLACEMENT).getText());
+                                    }
+                                    if (directionTypeelements.element(Constact.SEGNO) != null) {
+                                        directionType.setSegno(true);
+                                    }
+                                    if (directionTypeelements.element(Constact.CODA) != null) {
+                                        directionType.setCoda(true);
+                                    }
+                                    if (directionTypeelements.element(Constact.WORDS) != null) {
+                                        Words words = new Words();
+                                        directionType.setWords(words);
+                                        Element wordselement = directionTypeelements.element(Constact.WORDS);
+                                        if (wordselement!=null){
+                                            words.setWords(wordselement.getText());
+                                        }
+                                    }
+
+
+                                    Element wedgeElements = directionTypeelements.element(Constact.WEDGE);
+                                    if (wedgeElements != null) {
+                                        Wedge wedge = new Wedge();
+                                        directionType.setWedge(wedge);
+                                        if (wedgeElements.attribute(Constact.TYPE) != null) {
+                                            wedge.setType(wedgeElements.attribute(Constact.TYPE).getText());
+                                        }
+                                        if (wedgeElements.attribute(Constact.NUMBER) != null) {
+                                            wedge.setNumber(Integer.parseInt(wedgeElements.attribute(Constact.NUMBER).getText()));
+                                        }
+                                    }
+
+
+                                    Element dynamicselement = directionTypeelements.element(Constact.DYNAMICS);
+                                    if (dynamicselement != null) {
+                                        Dynamics dynamics = new Dynamics();
+                                        directionType.setDynamics(dynamics);
+                                        Element PPPelement = dynamicselement.element(Constact.PPP);
+                                        Element PPelement = dynamicselement.element(Constact.PP);
+                                        Element Pelement = dynamicselement.element(Constact.P);
+                                        Element MPelement = dynamicselement.element(Constact.MP);
+                                        Element MFelement = dynamicselement.element(Constact.MF);
+                                        Element Felement = dynamicselement.element(Constact.F);
+                                        Element FFelement = dynamicselement.element(Constact.FF);
+                                        Element FFFelement = dynamicselement.element(Constact.FFF);
+                                        Element FPelement = dynamicselement.element(Constact.FP);
+                                        Element SFelement = dynamicselement.element(Constact.SF);
+                                        Element SFZelement = dynamicselement.element(Constact.SFZ);
+                                        Element SFFelement = dynamicselement.element(Constact.SFF);
+                                        Element SFFZelement = dynamicselement.element(Constact.SFFZ);
+                                        Element SFPelement = dynamicselement.element(Constact.SFP);
+                                        Element SFPPelement = dynamicselement.element(Constact.SFPP);
+                                        Element RFZelement = dynamicselement.element(Constact.RFZ);
+                                        Element RFelement = dynamicselement.element(Constact.RF);
+                                        Element FZelement = dynamicselement.element(Constact.FZ);
+                                        if (FPelement!=null) {
+                                            dynamics.setFP(true);
+                                        }
+                                        if (SFelement!=null) {
+                                            dynamics.setSF(true);
+                                        }
+                                        if (SFZelement!=null) {
+                                            dynamics.setRFZ(true);
+                                        }
+                                        if (SFFelement!=null) {
+                                            dynamics.setSFF(true);
+                                        }
+                                        if (SFFZelement!=null) {
+                                            dynamics.setSFFZ(true);
+                                        }
+                                        if (SFPelement!=null) {
+                                            dynamics.setSFP(true);
+                                        }
+                                        if (SFPPelement!=null) {
+                                            dynamics.setSFPP(true);
+                                        }
+                                        if (RFZelement!=null) {
+                                            dynamics.setRFZ(true);
+                                        }
+                                        if (RFelement!=null) {
+                                            dynamics.setRF(true);
+                                        }
+                                        if (FZelement!=null) {
+                                            dynamics.setFZ(true);
+                                        }
+                                        if (PPPelement != null) {
+                                            dynamics.setPPP(true);
+                                        }
+                                        if (PPelement != null) {
+                                            dynamics.setPP(true);
+                                        }
+                                        if (Pelement != null) {
+                                            dynamics.setP(true);
+                                        }
+                                        if (MPelement != null) {
+                                            dynamics.setMP(true);
+                                        }
+                                        if (MFelement != null) {
+                                            dynamics.setMF(true);
+                                        }
+                                        if (Felement != null) {
+                                            dynamics.setF(true);
+                                        }
+                                        if (FFelement != null) {
+                                            dynamics.setFF(true);
+                                        }
+                                        if (FFFelement != null) {
+                                            dynamics.setFFF(true);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    Element attributeselement = meanext.element(Constact.ATTRIBUTES);
+                    if (attributeselement != null) {
+                        Attributes attributes = new Attributes();
+                        measure.setAttributes(attributes);
+                        if (attributeselement.element(Constact.DIVISIONS) != null) {
+                            attributes.setDivisions(Integer.parseInt(attributeselement.element(Constact.DIVISIONS).getText()));
+                        }
+                        Element keyelement = attributeselement.element(Constact.KEY);
+                        if (keyelement != null) {
+                            Key key = new Key();
+                            attributes.setKey(key);
+                            key.setFifths(Integer.parseInt(keyelement.element(Constact.FIFTHS).getText()));
+                        }
+                        Element timeelement = attributeselement.element(Constact.TIME);
+                        if (timeelement != null) {
+                            Time time = new Time();
+                            attributes.setTime(time);
+                            time.setBeats(Integer.parseInt(timeelement.element(Constact.BEATS).getText()));
+                            time.setBeatType(Integer.parseInt(timeelement.element(Constact.BEATTYPE).getText()));
+                        }
+                        Element clefelement = attributeselement.element(Constact.CLEF);
+                        if (clefelement != null) {
+                            Clef clef = new Clef();
+                            attributes.setClef(clef);
+                            clef.setLine(Integer.parseInt(clefelement.element(Constact.LINE).getText()));
+                            clef.setSign(clefelement.element(Constact.SIGN).getText());
+                        }
+                    }
+
+                    List noteselements = meanext.elements(Constact.NOTE);
+                    if (noteselements != null) {
+                        List<Note> noteList = new ArrayList<>();
+                        measure.setNotes(noteList);
+                        for (Iterator iterator = noteselements.iterator(); iterator.hasNext(); ) {
+                            Element notenext = (Element) iterator.next();
+                            if (notenext != null) {
+                                Note note = new Note();
+                                noteList.add(note);
+                                if (notenext.attribute(Constact.DEFAULTX) != null) {
+                                    note.setDefaultX(Float.parseFloat(notenext.attribute(Constact.DEFAULTX).getText()));
+                                    note.setDefaultY(Float.parseFloat(notenext.attribute(Constact.DEFAULTY).getText()));
+                                }
+                                if (notenext.element(Constact.PITCH) != null) {
+                                    Pitch pitch = new Pitch();
+                                    note.setPitch(pitch);
+                                    pitch.setStep(notenext.element(Constact.PITCH).element(Constact.STEP).getText());
+                                    if (notenext.element(Constact.PITCH).element(Constact.ALTER) != null) {
+                                        pitch.setAlter(Integer.parseInt(notenext.element(Constact.PITCH).element(Constact.ALTER).getText()));
+                                    }
+                                    pitch.setOctave(Integer.parseInt(notenext.element(Constact.PITCH).element(Constact.OCTAVE).getText()));
+                                }
+
+
+                                if (notenext.element(Constact.NOTATIONS) != null) {
+                                    Notations notations = new Notations();
+                                    note.setNotations(notations);
+                                    Element notationselement = notenext.element(Constact.NOTATIONS);
+                                    if (notationselement.element(Constact.FERMATA) != null) {
+                                        Fermata fermata = new Fermata();
+                                        notations.setFermata(fermata);
+                                        fermata.setType(notationselement.element(Constact.FERMATA).attribute(Constact.TYPE).getText());
+                                    }
+                                    if (notationselement.element(Constact.ARTICULATIONS) != null) {
+                                        Articulations articulations = new Articulations();
+                                        notations.setArticulations(articulations);
+                                        Element articulationselement = notationselement.element(Constact.ARTICULATIONS);
+                                        if (articulationselement.element(Constact.ACCENT) != null) {
+                                            articulations.setAccent(true);
+                                        }
+                                        if (articulationselement.element(Constact.STACCATO) != null) {
+                                            articulations.setStaccato(true);
+                                        }
+                                    }
+                                    if (notationselement.element(Constact.ORNAMENTS) != null) {
+                                        Ornaments ornaments = new Ornaments();
+                                        notations.setOrnaments(ornaments);
+                                        Element ornamentselement = notationselement.element(Constact.ORNAMENTS);
+                                        if (ornamentselement.element(Constact.INVERTEDMORDENT) != null) {
+                                            ornaments.setInvertedMordent(true);
+                                        }
+                                        if (ornamentselement.element(Constact.MORDENT) != null) {
+                                            ornaments.setMordent(true);
+                                        }
+                                        if (ornamentselement.element(Constact.INVERTEDTURN) != null) {
+                                            ornaments.setInvertedTurn(true);
+                                        }
+                                        if (ornamentselement.element(Constact.TURN) != null) {
+                                            ornaments.setTurn(true);
+                                        }
+                                        if (ornamentselement.element(Constact.TRILLMARK) != null) {
+                                            ornaments.setTrillMark(true);
+                                        }
+
+                                    }
+                                }
+                                if (notenext.element(Constact.ACCIDENTAL) != null) {
+                                    note.setAccidental(notenext.element(Constact.ACCIDENTAL).getText());
+                                }
+                                if (notenext.element(Constact.REST) != null) {
+                                    note.setRest(true);
+                                } else {
+                                    note.setRest(false);
+                                }
+                                if (notenext.element(Constact.NOTATIONS) != null) {
+                                    Element notationselement = notenext.element(Constact.NOTATIONS);
+                                    if (notationselement.element(Constact.SLUR) != null) {
+                                        Slur slur = new Slur();
+                                        note.setSlur(slur);
+                                        slur.setType(notationselement.element(Constact.SLUR).attribute(Constact.TYPE).getText());
+                                        slur.setNumber(Integer.parseInt(notationselement.element(Constact.SLUR).attribute(Constact.NUMBER).getText()));
+                                    }
+
+
+
+
+                                }
+                                if (notenext.element(Constact.DURATION) != null) {
+
+                                    note.setDuration(Integer.parseInt(notenext.element(Constact.DURATION).getText()));
+                                }
+                                if (notenext.element(Constact.VOICE) != null) {
+                                    note.setVoice(Integer.parseInt(notenext.element(Constact.VOICE).getText()));
+                                }
+                                if (notenext.element(Constact.TYPE) != null) {
+                                    note.setType(notenext.element(Constact.TYPE).getText());
+                                }
+                                if (notenext.element(Constact.STEM) != null) {
+                                    note.setStem(notenext.element(Constact.STEM).getText());
+                                }
+
+                                List lyricelements = notenext.elements(Constact.LYRIC);
+                                if (lyricelements != null && lyricelements.size() > 0) {
+                                    List<Lyric> lyricslist = new ArrayList<>();
+                                    note.setLyricList(lyricslist);
+                                    for (Iterator itera = lyricelements.iterator(); itera.hasNext(); ) {
+                                        Element lynext = (Element) itera.next();
+                                        if (lynext != null) {
+                                            Lyric lyric = new Lyric();
+                                            lyricslist.add(lyric);
+                                            if (lynext.attribute(Constact.NUMBER) != null) {
+                                                lyric.setNumber(Integer.parseInt(lynext.attribute(Constact.NUMBER).getText()));
+                                            }
+                                            if (lynext.element(Constact.SYLLABIC) != null) {
+                                                lyric.setSyllabic(lynext.element(Constact.SYLLABIC).getText());
+                                            }
+                                            if (lynext.element(Constact.TEXT) != null) {
+                                                lyric.setText(lynext.element(Constact.TEXT).getText());
+                                            }
+                                        }
+                                    }
+                                }
+
+                                List<Element> dotelements = notenext.elements(Constact.DOT);
+                                if (dotelements != null && dotelements.size() > 0) {
+                                    List<Dot> dotlist = new ArrayList<>();
+                                    note.setIsDot(dotlist);
+                                    for (int i = 0; i < dotelements.size(); i++) {
+                                        Dot dot = new Dot();
+                                        dotlist.add(dot);
+                                        dot.setDot(true);
+                                    }
+                                }
+                                List<Element> beamelements = notenext.elements(Constact.BEAM);
+                                if (beamelements != null && beamelements.size() > 0) {
+                                    List<Beam> beamList = new ArrayList<>();
+                                    note.setBeamList(beamList);
+                                    for (Iterator itera = beamelements.iterator(); itera.hasNext(); ) {
+                                        Element beannext = (Element) itera.next();
+                                        if (beannext != null) {
+                                            Beam beam = new Beam();
+                                            beamList.add(beam);
+                                            beam.setContent(beannext.getText());
+                                            if (beannext.attribute(Constact.NUMBER) != null) {
+                                                beam.setNumber(Integer.parseInt(beannext.attribute(Constact.NUMBER).getText()));
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+
+    /**
+     * 拿到下一个标签
+     *
+     * @param scorePartWise
+     * @param partlistelement
+     */
+    private void getPartList(ScorePartWise scorePartWise, Element partlistelement) {
+        if (partlistelement != null) {
+            PartList partList = new PartList();
+            scorePartWise.setPartList(partList);
+            List scorePartelements = partlistelement.elements(Constact.SCOREPART);
+//            partList.setScorePartList(scorePartelements);
+            if (scorePartelements != null && scorePartelements.size() > 0) {
+                List<ScorePart> scorePartList = new ArrayList<>();
+                partList.setScorePartList(scorePartList);
+                for (Iterator it = scorePartelements.iterator(); it.hasNext(); ) {
+                    ScorePart scorePart = new ScorePart();
+                    Element spelement = (Element) it.next();
+                    scorePartList.add(scorePart);
+                    scorePart.setId(spelement.attribute(Constact.ID).getText());
+                    scorePart.setPartname(spelement.element(Constact.PARTNAME).getText());
+                    scorePart.setPartAbbreviation(spelement.element(Constact.PARTABBREVIATION).getText());
+                    if (spelement.element(Constact.SCOREINSTRUMENT) != null) {
+                        ScoreInstrument scoreInstrument = new ScoreInstrument();
+                        scoreInstrument.setId(spelement.element(Constact.SCOREINSTRUMENT).getText());
+                        scoreInstrument.setInstrumenyName(spelement.element(Constact.SCOREINSTRUMENT).element(Constact.INSTRUMENTNAME).getText());
+                    }
+                    if (spelement.element(Constact.MIDIDEVICE) != null) {
+                        MidiDevice midiDevice = new MidiDevice();
+                        scorePart.setMidiDevice(midiDevice);
+                        midiDevice.setId(spelement.element(Constact.MIDIDEVICE).attribute(Constact.ID).getText());
+                        midiDevice.setPort(Integer.parseInt(spelement.element(Constact.MIDIDEVICE).attribute(Constact.PORT).getText()));
+                    }
+                    if (spelement.element(Constact.MIDIINSTRUMENT) != null) {
+                        MidiInstrument midiInstrument = new MidiInstrument();
+                        scorePart.setMidiInstrument(midiInstrument);
+                        midiInstrument.setId(spelement.element(Constact.MIDIINSTRUMENT).attribute(Constact.ID).getText());
+                        midiInstrument.setMidiChannel(Integer.parseInt(spelement.element(Constact.MIDIINSTRUMENT).element(Constact.MIDICHANNEL).getText()));
+                        midiInstrument.setMidiProgram(Integer.parseInt(spelement.element(Constact.MIDIINSTRUMENT).element(Constact.MIDIPROGRAM).getText()));
+                        midiInstrument.setVolume(Double.parseDouble(spelement.element(Constact.MIDIINSTRUMENT).element(Constact.VOLUME).getText()));
+                        midiInstrument.setPan(Integer.parseInt(spelement.element(Constact.MIDIINSTRUMENT).element(Constact.PAN).getText()));
+
+                    }
+                }
+            }
+
+
+        }
+    }
+
+    /**
+     * 得到第三个标签
+     *
+     * @param scorePartWise
+     * @param creditelementslist
+     */
+    private void getCredit(ScorePartWise scorePartWise, List creditelementslist) {
+        if (creditelementslist != null && creditelementslist.size() > 0) {
+            List<Credit> creditList = new ArrayList<>();
+            scorePartWise.setCreditList(creditList);
+            for (Iterator it = creditelementslist.iterator(); it.hasNext(); ) {
+
+                Element creditelements = (Element) it.next();
+                if (creditelements != null) {
+                    Credit credit = new Credit();
+                    creditList.add(credit);
+                    Element creditwordselement = creditelements.element(Constact.CREDITWORDS);
+                    if (creditwordselement != null) {
+                        CreditWords creditWords = new CreditWords();
+                        credit.setCreditWords(creditWords);
+                        if (creditwordselement.attribute(Constact.DEFAULTX) != null) {
+                            creditWords.setDefaultX(Double.parseDouble(creditwordselement.attribute(Constact.DEFAULTX).getText()));
+                        }
+                        if (creditwordselement.attribute(Constact.DEFAULTY) != null) {
+                            creditWords.setDefaultY(Double.parseDouble(creditwordselement.attribute(Constact.DEFAULTY).getText()));
+                        }
+                        if (creditwordselement.attribute(Constact.JUSTIFY) != null) {
+                            creditWords.setJustify(creditwordselement.attribute(Constact.JUSTIFY).getText());
+                        }
+                        if (creditwordselement.attribute(Constact.VALIGN) != null) {
+                            creditWords.setValign(creditwordselement.attribute(Constact.VALIGN).getText());
+                        }
+                        if (creditwordselement.attribute(Constact.FONTSIZE) != null) {
+                            creditWords.setFontSize(Integer.parseInt(creditwordselement.attribute(Constact.FONTSIZE).getText()));
+                        }
+                        creditWords.setContext(creditwordselement.getText());
+                    }
+                }
+
+
+            }
+        }
+    }
+
+    /**
+     * 得到第2个标签
+     *
+     * @param rootElement
+     * @param scorePartWise
+     * @param identificationelement
+     */
+    private void getIdentification(Element rootElement, ScorePartWise scorePartWise, Element identificationelement) {
+        if (identificationelement != null) {
+            Identification identification = new Identification();
+            scorePartWise.setIdentification(identification);
+            Element encodingelement = identificationelement.element(Constact.ENCODING);
+
+            if (encodingelement != null) {
+                Encoding encoding = new Encoding();
+                identification.setEncoding(encoding);
+                Element softwareelement = encodingelement.element(Constact.SOFTWARE);
+                if (softwareelement != null) {
+                    encoding.setSoftware(softwareelement.getText());
+                }
+                Element encodingdateelement = encodingelement.element(Constact.ENCODINGDATE);
+                if (encodingdateelement != null) {
+                    encoding.setEncoding_date(encodingdateelement.getText());
+                }
+                List supportsList = encodingelement.elements(Constact.SUPPORTS);
+                if (supportsList != null && supportsList.size() > 0) {
+                    List<Supports> supportList = new ArrayList<>();
+                    encoding.setSupportsList(supportList);
+                    for (Iterator it = supportsList.iterator(); it.hasNext(); ) {
+                        Element supportselement = (Element) it.next();
+                        if (supportselement != null) {
+                            Supports supports = new Supports();
+                            supportList.add(supports);
+                            if (supportselement.attribute(Constact.ELEMENT).getText() != null) {
+                                supports.setElement(supportselement.attribute(Constact.ELEMENT).getText());
+                            }
+                            if (supportselement.attribute(Constact.ATTRIBUTE) != null) {
+                                supports.setAttribute(supportselement.attribute(Constact.ATTRIBUTE).getText());
+                            }
+                            if (supportselement.attribute(Constact.TYPE).getText() != null) {
+                                supports.setType(supportselement.attribute(Constact.TYPE).getText());
+                            }
+                            if (supportselement.attribute(Constact.VALUE) != null) {
+                                supports.setValue(supportselement.attribute(Constact.VALUE).getText());
+                            }
+                        }
+                    }
+                }
+                Element defaultelement = rootElement.element(Constact.DEFAULTS);
+                if (defaultelement != null) {
+                    Defaults defaults = new Defaults();
+                    scorePartWise.setDefaults(defaults);
+                    Element scalingelement = defaultelement.element(Constact.SCALING);
+                    if (scalingelement != null) {
+                        Scaling scaling = new Scaling();
+                        defaults.setScaling(scaling);
+                        Element millimeterselement = scalingelement.element(Constact.MILLIMETERS);
+                        if (millimeterselement != null) {
+                            scaling.setMillimeters(Double.parseDouble(millimeterselement.getText()));
+                        }
+                        Element tenthselement = scalingelement.element(Constact.TENTHS);
+                        if (tenthselement != null) {
+                            scaling.setTenths(Integer.parseInt(tenthselement.getText()));
+                        }
+                    }
+                    Element pagelayoutelement = defaultelement.element(Constact.PAGELAYOUT);
+                    if (pagelayoutelement != null) {
+                        PageLayout pageLayout = new PageLayout();
+                        defaults.setPageLayout(pageLayout);
+                        Element pageheightelement = pagelayoutelement.element(Constact.PAGEHEIGHT);
+                        if (pageheightelement != null) {
+                            pageLayout.setPageHeight(Double.parseDouble(pageheightelement.getText()));
+                        }
+                        Element pagewidthelement = pagelayoutelement.element(Constact.PAGEWIDTH);
+                        if (pagewidthelement != null) {
+                            pageLayout.setPageWidth(Double.parseDouble(pagewidthelement.getText()));
+                        }
+                        List pagemarginselementslist = pagelayoutelement.elements(Constact.PAGEMARGINS);
+                        if (pagemarginselementslist != null && pagemarginselementslist.size() > 0) {
+                            List<PageMargins> pageMarginsList = new ArrayList<>();
+                            pageLayout.setPageMarginsList(pageMarginsList);
+                            for (Iterator it = pagemarginselementslist.iterator(); it.hasNext(); ) {
+                                Element pagemarginselement = (Element) it.next();
+                                PageMargins pageMargins = new PageMargins();
+                                pageMarginsList.add(pageMargins);
+                                Element leftmarginelement = pagemarginselement.element(Constact.LEFTMARGIN);
+                                if (leftmarginelement != null) {
+                                    pageMargins.setLeftMargin(Double.parseDouble(leftmarginelement.getText()));
+                                }
+                                Element rightmarginelement = pagemarginselement.element(Constact.RIGHTMARGIN);
+                                if (rightmarginelement != null) {
+                                    pageMargins.setLeftMargin(Double.parseDouble(rightmarginelement.getText()));
+                                }
+                                Element topmarginelement = pagemarginselement.element(Constact.TOPMARGIN);
+                                if (topmarginelement != null) {
+                                    pageMargins.setLeftMargin(Double.parseDouble(topmarginelement.getText()));
+                                }
+                                Element bottommarginelement = pagemarginselement.element(Constact.BOTTOMMARGIN);
+                                if (bottommarginelement != null) {
+                                    pageMargins.setLeftMargin(Double.parseDouble(bottommarginelement.getText()));
+                                }
+                                if (pagemarginselement.attribute(Constact.TYPE) != null) {
+                                    pageMargins.setType(pagemarginselement.attribute(Constact.TYPE).getText());
+                                }
+                            }
+                        }
+
+                    }
+                    Element wordfontelement = defaultelement.element(Constact.WORDFONT);
+                    if (wordfontelement != null) {
+                        WorkFont workFont = new WorkFont();
+                        defaults.setWorkFont(workFont);
+                        if (wordfontelement.attribute(Constact.FONTFAMILY) != null) {
+                            workFont.setFontFamily(wordfontelement.attribute(Constact.FONTFAMILY).getText());
+                        }
+                        if (wordfontelement.attribute(Constact.FONTSIZE) != null) {
+                            workFont.setFontSize(Integer.parseInt(wordfontelement.attribute(Constact.FONTSIZE).getText()));
+                        }
+                    }
+                    Element lyricfontelement = defaultelement.element(Constact.LYRICFONT);
+                    if (lyricfontelement != null) {
+                        LyricFont lyricFont = new LyricFont();
+                        defaults.setLyricFont(lyricFont);
+                        if (lyricfontelement.attribute(Constact.FONTFAMILY) != null) {
+                            lyricFont.setFontFamily(lyricfontelement.attribute(Constact.FONTFAMILY).getText());
+                        }
+                        if (lyricfontelement.attribute(Constact.FONTSIZE) != null) {
+                            lyricFont.setFontSize(Integer.parseInt(lyricfontelement.attribute(Constact.FONTSIZE).getText()));
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+
+    /**
+     * 得到第一个标签
+     *
+     * @param scorePartWise
+     * @param workelement
+     * @param work_titleelement
+     */
+    private void getTitle(ScorePartWise scorePartWise, Element workelement, Element work_titleelement) {
+        //创建word的对象，并拿到title
+        if (workelement != null && work_titleelement != null) {
+            Work w = new Work();
+            scorePartWise.setWork(w);
+            w.setWork_title(work_titleelement.getText());
+        }
+    }
+
+}
+

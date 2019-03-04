@@ -1,319 +1,326 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--加入fitsSystemWindows这一句是为了保证在安卓5.0以后的版本中软键盘依旧不遮挡登录按钮-->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/video_fragment"
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:background="#F7F8F9"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="1.2">
-
-        <LinearLayout
-            android:layout_weight="2.5"
-            android:layout_width="0dip"
-            android:layout_height="match_parent">
-            <TextView
-                android:layout_marginLeft="27dp"
-                android:text="课程集锦"
-                android:gravity="center"
-                android:textSize="17sp"
-                android:textColor="#231F3A"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:gravity="center|right"
-            android:orientation="horizontal"
-            android:layout_width="0dip"
-            android:layout_weight="8"
-            android:layout_height="match_parent">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="0dip"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <Button
-                            android:id="@+id/btn_Today"
-                            android:layout_width="wrap_content"
-                            android:layout_height="33dp"
-                            android:textSize="12dp"
-                            android:background="@mipmap/icon_rectangle_blue"
-                            android:text="一年級"
-                            android:textColor="@color/white" />
-
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dip"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <Button
-                            android:id="@+id/btn_hours"
-                            android:textSize="12dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="33dp"
-                            android:background="@mipmap/icon_rectangle_blue"
-                            android:text="二年級"
-                            android:textColor="@color/white" />
-
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dip"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <Button
-                            android:id="@+id/btn_sevendays"
-                            android:layout_width="wrap_content"
-                            android:textSize="12dp"
-                            android:layout_height="33dp"
-                            android:background="@mipmap/icon_rectangle_blue"
-                            android:text="三年級"
-                            android:textColor="@color/white" />
-
-
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dip"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <Button
-                            android:id="@+id/btn_Onemonth"
-                            android:layout_width="wrap_content"
-                            android:textSize="12dp"
-                            android:layout_height="33dp"
-                            android:background="@mipmap/icon_rectangle_blue"
-                            android:text="四年級"
-                            android:textColor="@color/white" />
-
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dip"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="33dp"
-                            android:textSize="12dp"
-                            android:background="@mipmap/icon_rectangle_blue"
-                            android:text="五年級"
-                            android:textColor="@color/white" />
-
-                    </LinearLayout>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dip"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="33dp"
-                            android:textSize="12dp"
-                            android:background="@mipmap/icon_rectangle_blue"
-                            android:text="六年級"
-                            android:textColor="@color/white" />
-
-                    </LinearLayout>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dip"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="33dp"
-                            android:textSize="12dp"
-                            android:background="@mipmap/icon_rectangle_blue"
-                            android:text="七年級"
-                            android:textColor="@color/white" />
-
-                    </LinearLayout>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dip"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:textSize="12dp"
-                            android:layout_height="33dp"
-                            android:background="@mipmap/icon_rectangle_blue"
-                            android:text="八年級"
-                            android:textColor="@color/white" />
-
-                    </LinearLayout>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dip"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="33dp"
-                            android:textSize="12dp"
-                            android:background="@mipmap/icon_rectangle_blue"
-                            android:text="九年級"
-                            android:textColor="@color/white" />
-
-                    </LinearLayout>
-                </LinearLayout>
-
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="1.5">
-            <LinearLayout
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <com.example.admin.musicclassroom.widget.SearchEditText
-                    android:id="@+id/ed_search"
-                    style="@style/layout_SearchStyle"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_weight="1"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
-                    android:hint="请输入搜索內容"
-                    android:textColor="#9a9a9a"
-                    android:textColorHint="#9a9a9a" />
-
-            </LinearLayout>
-        </LinearLayout>
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:background="#F1F0F5"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="10">
-
+        android:layout_height="match_parent">
         <LinearLayout
-            android:gravity="right"
+            android:background="#F7F8F9"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="0dip"
+            android:layout_weight="1.2">
 
-            <ImageView
-                android:id="@+id/iv_guide"
-                android:src="@mipmap/icon_guide"
-                android:layout_marginRight="45dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_weight="2.5"
+                android:layout_width="0dip"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_marginLeft="27dp"
+                    android:text="课程集锦"
+                    android:gravity="center"
+                    android:textSize="17sp"
+                    android:textColor="#231F3A"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:gravity="center|right"
+                android:orientation="horizontal"
+                android:layout_width="0dip"
+                android:layout_weight="8"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dip"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <Button
+                                android:id="@+id/btn_Today"
+                                android:layout_width="wrap_content"
+                                android:layout_height="33dp"
+                                android:textSize="12dp"
+                                android:background="@mipmap/icon_rectangle_blue"
+                                android:text="一年級"
+                                android:textColor="@color/white" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dip"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <Button
+                                android:id="@+id/btn_hours"
+                                android:textSize="12dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="33dp"
+                                android:background="@mipmap/icon_rectangle_blue"
+                                android:text="二年級"
+                                android:textColor="@color/white" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dip"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <Button
+                                android:id="@+id/btn_sevendays"
+                                android:layout_width="wrap_content"
+                                android:textSize="12dp"
+                                android:layout_height="33dp"
+                                android:background="@mipmap/icon_rectangle_blue"
+                                android:text="三年級"
+                                android:textColor="@color/white" />
+
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dip"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <Button
+                                android:id="@+id/btn_Onemonth"
+                                android:layout_width="wrap_content"
+                                android:textSize="12dp"
+                                android:layout_height="33dp"
+                                android:background="@mipmap/icon_rectangle_blue"
+                                android:text="四年級"
+                                android:textColor="@color/white" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dip"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="33dp"
+                                android:textSize="12dp"
+                                android:background="@mipmap/icon_rectangle_blue"
+                                android:text="五年級"
+                                android:textColor="@color/white" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dip"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="33dp"
+                                android:textSize="12dp"
+                                android:background="@mipmap/icon_rectangle_blue"
+                                android:text="六年級"
+                                android:textColor="@color/white" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dip"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="33dp"
+                                android:textSize="12dp"
+                                android:background="@mipmap/icon_rectangle_blue"
+                                android:text="七年級"
+                                android:textColor="@color/white" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dip"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:textSize="12dp"
+                                android:layout_height="33dp"
+                                android:background="@mipmap/icon_rectangle_blue"
+                                android:text="八年級"
+                                android:textColor="@color/white" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dip"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="33dp"
+                                android:textSize="12dp"
+                                android:background="@mipmap/icon_rectangle_blue"
+                                android:text="九年級"
+                                android:textColor="@color/white" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5">
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <com.example.admin.musicclassroom.widget.SearchEditText
+                        android:id="@+id/ed_search"
+                        style="@style/layout_SearchStyle"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_weight="1"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:hint="请输入搜索內容"
+                        android:textColor="#9a9a9a"
+                        android:textColorHint="#9a9a9a" />
+
+                </LinearLayout>
+            </LinearLayout>
 
         </LinearLayout>
-        <com.example.admin.musicclassroom.widget.MyGridView
-            android:layout_marginRight="30dp"
-            android:layout_marginLeft="30dp"
-            android:id="@+id/gv_datas"
-            android:numColumns="5"
-            android:verticalSpacing="10dp"
-            android:horizontalSpacing="15dp"
-            android:fadeScrollbars="true"
-            android:background="#F1F0F5"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></com.example.admin.musicclassroom.widget.MyGridView>
 
+
+        <LinearLayout
+            android:background="#F1F0F5"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="10">
+
+            <LinearLayout
+                android:gravity="right"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iv_guide"
+                    android:src="@mipmap/icon_guide"
+                    android:layout_marginRight="45dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+            <com.example.admin.musicclassroom.widget.MyGridView
+                android:layout_marginRight="30dp"
+                android:layout_marginLeft="30dp"
+                android:id="@+id/gv_datas"
+                android:numColumns="5"
+                android:verticalSpacing="10dp"
+                android:horizontalSpacing="15dp"
+                android:fadeScrollbars="true"
+                android:background="#F1F0F5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></com.example.admin.musicclassroom.widget.MyGridView>
+
+
+
+        </LinearLayout>
 
 
     </LinearLayout>
@@ -324,4 +331,5 @@
 
 
 
-</LinearLayout>
+
+</RelativeLayout>

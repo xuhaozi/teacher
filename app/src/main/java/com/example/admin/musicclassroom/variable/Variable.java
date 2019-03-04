@@ -75,6 +75,5 @@ public class Variable {
     //获取乐理详情
     public static String address_theory_info = accessaddress + "theory/info";
 
-    //发送MIDI
-    public static String SEND_EX_NAME="http://tj-mj.cn/push/pushTagByCourse";
+
 }

@@ -1,10 +1,14 @@
 package com.example.admin.musicclassroom.fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.http.SslError;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +19,11 @@ import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.admin.musicclassroom.R;
+import com.example.admin.musicclassroom.Utils.MaskPopupWindow;
 import com.example.admin.musicclassroom.adapter.GridViewAdaptehistoryList;
 import com.example.admin.musicclassroom.entity.CourseVo;
 import com.example.admin.musicclassroom.mFragment;
@@ -46,6 +52,8 @@ public class Fragment_Teaching_Item extends mFragment {
     @ViewInject(R.id.gv_datas)
     private MyGridView gv_datas;
 
+    @ViewInject(R.id.iv_guide)
+    private ImageView iv_guide;
     private List<CourseVo> courseVoList;
     private GridViewAdaptehistoryList gridViewAdaptehistoryList;
 
@@ -57,8 +65,6 @@ public class Fragment_Teaching_Item extends mFragment {
         gethistory();
         return views;
     }
-
-
 
     String json="{\n" +
             "\t\"code\": 200,\n" +
@@ -175,7 +181,6 @@ public class Fragment_Teaching_Item extends mFragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
@@ -184,5 +189,28 @@ public class Fragment_Teaching_Item extends mFragment {
         };
         finalHttp.post(Variable.address_history, params, callBack);
     }
+
+    private MaskPopupWindow maskPopupWindow;
+    private Handler popupHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 0:
+                    maskPopupWindow=new MaskPopupWindow(getActivity());
+                    maskPopupWindow.showAtLocation(getActivity().findViewById(R.id.iv_guide), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+                    break;
+            }
+        }
+
+    };
+
+    //课程演示
+    @Event(value = R.id.iv_guide, type = View.OnClickListener.class)
+    private void iv_guideClick(View v) {
+        popupHandler.sendEmptyMessageDelayed(0, 1000);
+    }
+
+
+
 
 }

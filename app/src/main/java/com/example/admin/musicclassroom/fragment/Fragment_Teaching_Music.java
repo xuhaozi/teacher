@@ -1,13 +1,15 @@
 package com.example.admin.musicclassroom.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.PowerManager;
-import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -18,23 +20,22 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.admin.musicclassroom.R;
-import com.example.admin.musicclassroom.Utils.HttpUtils;
+import com.example.admin.musicclassroom.Utils.FileUtils;
 import com.example.admin.musicclassroom.Utils.PanioMusic;
-import com.example.admin.musicclassroom.adapter.GridViewAdapteAppreciateTypeList;
+import com.example.admin.musicclassroom.Utils.XMLParser;
 import com.example.admin.musicclassroom.entity.CourseVo;
-import com.example.admin.musicclassroom.entity.MusicStyleVo;
 import com.example.admin.musicclassroom.mFragment;
+import com.example.admin.musicclassroom.musicentity.beans.ScorePartWise;
+import com.example.admin.musicclassroom.ui.MainActivity;
+import com.example.admin.musicclassroom.ui.testActivity;
 import com.example.admin.musicclassroom.variable.Variable;
+import com.example.admin.musicclassroom.widget.MusicView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
 
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
@@ -46,12 +47,8 @@ import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
+import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 
 
 public class Fragment_Teaching_Music extends mFragment {
@@ -78,10 +75,12 @@ public class Fragment_Teaching_Music extends mFragment {
     @ViewInject(R.id.ll_music_play)
     private LinearLayout ll_music_play;
 
+    @ViewInject(R.id.music_view)
+    private MusicView musicView;
+    private ScorePartWise scorePartWise;
 
     @ViewInject(R.id.pb_lod)
     private ProgressBar pb_lod;
-
 
     private LinearLayout llKeys;
 
@@ -306,6 +305,8 @@ public class Fragment_Teaching_Music extends mFragment {
             }
         });
         keys =view.findViewById(R.id.llKeys) ;
+        Intent intent=new Intent(getActivity(),testActivity.class);
+        this.startActivity(intent);
 
     }
     //初始化fragment
@@ -318,8 +319,30 @@ public class Fragment_Teaching_Music extends mFragment {
         arr_btn[4] = btn_fullscreen;
         changeCurrBtn(0);
     }
+
+    @NonNull
+    private String getString() {
+        String filepath;
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            filepath = Environment.getExternalStorageDirectory().getAbsolutePath();
+        } else {
+            filepath = getActivity().getFilesDir().getAbsolutePath();
+        }
+        return filepath;
+    }
+
+//    数据填充
     private void InitData(final CourseVo courseVo){
-       final MediaPlayer mediaPlayer = new MediaPlayer();
+//        文件路径
+         String filepath = "";
+         filepath = getString();
+         File file = new File(filepath + "/布谷.xml");
+         File midifile = new File(filepath + "/布谷.mid");
+         XMLParser xmlparser = new XMLParser(file, getActivity());
+         scorePartWise = xmlparser.readFromXml();
+         musicView.setScorePartWise(scorePartWise, getActivity(), midifile);
+
+        final MediaPlayer mediaPlayer = new MediaPlayer();
         try {
             mediaPlayer.setWakeMode(getActivity(), PowerManager.PARTIAL_WAKE_LOCK);
             mediaPlayer.setDataSource(Variable.accessaddress_img+courseVo.getMp3());
@@ -336,7 +359,6 @@ public class Fragment_Teaching_Music extends mFragment {
                     // todo
                 }
             });
-
             mediaPlayer.setOnBufferingUpdateListener(new MediaPlayer.OnBufferingUpdateListener() {
                 @Override
                 public void onBufferingUpdate(MediaPlayer mediaPlayer, int i) {
@@ -509,48 +531,13 @@ public class Fragment_Teaching_Music extends mFragment {
     @Event(value = R.id.btn_sendout, type = View.OnClickListener.class)
     private void ll_appreciate_gerenClick(View v) {
         changeCurrBtn(3);
-//        Map<String, String> params = new HashMap<>();
         //获取用户名
         SharedPreferences musicData = getContext().getSharedPreferences("MusicData", Context.MODE_PRIVATE);
         String teacherId = musicData.getString("musicname", "?");
         //获取曲谱名称
         String grade=courseVo.getStaffName();
-        Toast.makeText(getActivity(), grade+"+"+teacherId, Toast.LENGTH_SHORT).show();
-//      String grade = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("course", "");
-//      String teacherId = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("teacherId", "");
-//        params.put("course", grade);
-//        params.put("teacherId", teacherId);
-//        HttpUtils.INSTANCE.sendRequestToServer(HttpUtils.INSTANCE.getSEND_EX_NAME(), params, new Callback() {
-//            @Override
-//            public void onFailure(Request request, IOException e) {
-//                getActivity().runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        Toast.makeText(getActivity(), "推送失败 请稍后再试", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//            }
-//
-//            @Override
-//            public void onResponse(Response response) throws IOException {
-//                Log.i("MIDI",response.body().string());
-//                if (response.body().string().equals("true")) {
-//                    getActivity().runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            Toast.makeText(getActivity(), "推送成功", Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
-//                } else {
-//                    getActivity().runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            Toast.makeText(getActivity(), "推送失败 请稍后再试", Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
-//
-//                }
-//            }
+//        Toast.makeText(getActivity(), grade+"+"+teacherId, Toast.LENGTH_SHORT).show();
+        //上传
         FinalHttp finalHttp = new FinalHttp();
 //        finalHttp.addHeader("token",  Variable.loginInfoVo.getData());
         AjaxParams params = new AjaxParams();
@@ -571,7 +558,7 @@ public class Fragment_Teaching_Music extends mFragment {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(getActivity(), "推送失败 请稍后再试1", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "推送失败 请稍后再试", Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -590,7 +577,6 @@ public class Fragment_Teaching_Music extends mFragment {
             }
         };
         finalHttp.post("http://tj-mj.cn/push/pushTagByCourse", params, callBack);
-//        });
     }
     //全屏
     @Event(value = R.id.btn_fullscreen, type = View.OnClickListener.class)

@@ -4,13 +4,159 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff">
-
-
-    <ImageView
-        android:layout_margin="30dp"
-        android:src="@mipmap/icon_music_score"
+    <LinearLayout
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_marginBottom="65dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_width="350dp"
+        android:layout_height="45dp">
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_weight="0.3"
+                android:layout_width="0dip"
+                android:layout_height="match_parent">
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginLeft="3dp"
+                android:layout_weight="5"
+                android:layout_width="0dip"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/iv_white"
+                    android:layout_margin="6dp"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/white"
+                    android:layout_weight="1"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent" />
+                <ImageView
+                    android:id="@+id/iv_yellow"
+                    android:layout_margin="6dp"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/yellow"
+                    android:layout_weight="1"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent" />
+                <ImageView
+                    android:id="@+id/iv_red"
+                    android:layout_margin="6dp"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/red"
+                    android:layout_weight="1"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:id="@+id/iv_blue_tow"
+                    android:layout_margin="6dp"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/icon_blue_tow"
+                    android:layout_weight="1"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent" />
+                <ImageView
+                    android:id="@+id/iv_blue"
+                    android:layout_margin="6dp"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/blue"
+                    android:layout_weight="1"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent" />
+
+
+
+
+            </LinearLayout>
+
+            <View
+                android:alpha="0.2"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                android:layout_width="0.05dp"
+                android:layout_height="match_parent"></View>
+            <LinearLayout
+                android:layout_marginLeft="3dp"
+                android:layout_weight="1"
+                android:layout_width="0dip"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/iv_clear"
+                    android:layout_margin="6dp"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/icon_rubber"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+
+            </LinearLayout>
+
+            <View
+                android:alpha="0.2"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                android:layout_width="0.05dp"
+                android:layout_height="match_parent"></View>
+            <LinearLayout
+                android:layout_marginLeft="3dp"
+                android:layout_weight="2.3"
+                android:layout_width="0dip"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/iv_left"
+                    android:layout_margin="5dp"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/icon_drawing_left"
+                    android:layout_weight="1"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent" />
+                <ImageView
+                    android:id="@+id/iv_right"
+                    android:layout_margin="5dp"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/icon_drawing_right"
+                    android:layout_weight="1"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent" />
+
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+
 
 
 </RelativeLayout>

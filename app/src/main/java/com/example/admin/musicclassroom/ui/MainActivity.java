@@ -12,21 +12,20 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.admin.musicclassroom.R;
 import com.example.admin.musicclassroom.fragment.Fragment_Appreciate_Item;
 import com.example.admin.musicclassroom.fragment.Fragment_Drawingboard_Item;
 import com.example.admin.musicclassroom.fragment.Fragment_Game_Item;
-import com.example.admin.musicclassroom.fragment.Fragment_MusicInfo_Item;
 import com.example.admin.musicclassroom.fragment.Fragment_Musictheory_Item;
 import com.example.admin.musicclassroom.fragment.Fragment_My_Item;
 import com.example.admin.musicclassroom.fragment.Fragment_Piano_Item;
 import com.example.admin.musicclassroom.fragment.Fragment_Teaching_Item;
+import com.example.admin.musicclassroom.musicentity.beans.ScorePartWise;
+import com.example.admin.musicclassroom.widget.MusicView;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -75,6 +74,10 @@ public class MainActivity extends AppCompatActivity {
     @ViewInject(R.id.fl_body)
     private FrameLayout fl_body;
 
+    @ViewInject(R.id.music_view)
+    private MusicView musicView;
+
+    private ScorePartWise scorePartWise;
 
     private Fragment mContent, fragment_Teaching_Item, fragment_Piano_Item, fragment_Musictheory_Item, fragment_Appreciate_Item, fragment_Drawingboard_Item,fragment_Game_Item,fragment_My_Item;//首页模块中的碎片
     private FragmentManager fm;
@@ -113,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
         fragment_My_Item=new Fragment_My_Item();
         setDefaultFragment(fragment_Teaching_Item);
     }
+
 
     //切换fragment的显示隐藏
     public void switchContent(Fragment to) {
@@ -224,6 +228,7 @@ public class MainActivity extends AppCompatActivity {
     private void ll_piano_gerenClick(View v) {
         changeCurrBtn(1);
         switchContent(fragment_Piano_Item);
+
     }
     //乐理
     @Event(value = R.id.ll_musictheory, type = View.OnClickListener.class)
