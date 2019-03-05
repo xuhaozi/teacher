@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -52,7 +53,8 @@ public class LoginHomeActivity extends mActivity {
     private EditText et_userPhone;
     @ViewInject(R.id.ed_password)
     private EditText et_userPassword;
-
+    @ViewInject(R.id.iv_demo)
+    private ImageView iv_demo;//演示
 
     private Dialog progressDialog;
 
@@ -121,6 +123,7 @@ public class LoginHomeActivity extends mActivity {
         SharedPreferences.Editor editor = getSharedPreferences("MusicData", Context.MODE_PRIVATE).edit();
         editor.putString("musicname", usr);
         editor.putString("musicpwd", pwd);
+        editor.putInt("demo",0);//修改演示标识
         editor.commit();
     }
 
@@ -130,13 +133,23 @@ public class LoginHomeActivity extends mActivity {
      *
      * @param v
      */
-    @Event(value = R.id.btn_login_onclik, type = View.OnClickListener.class)
+    @Event(value = {R.id.btn_login_onclik,R.id.iv_demo}, type = View.OnClickListener.class)
     private void btn_codeClick(View v) {
-        name = et_userPhone.getText().toString().trim();
-        password = et_userPassword.getText().toString().trim();
-        meminfo(name, password);
-        requestLogin(name, password);
-
+        switch (v.getId()){
+            case R.id.btn_login_onclik://正常登陆
+                name = et_userPhone.getText().toString().trim();
+                password = et_userPassword.getText().toString().trim();
+                meminfo(name, password);
+                requestLogin(name, password);
+                break;
+            case R.id.iv_demo://演示
+                SharedPreferences.Editor editor = getSharedPreferences("MusicData", Context.MODE_PRIVATE).edit();
+                editor.putInt("demo",1);//添加演示标识
+                editor.commit();
+                Intent intent=new Intent(LoginHomeActivity.this,MainActivity.class);
+                LoginHomeActivity.this.startActivity(intent);
+                break;
+        }
 
     }
 

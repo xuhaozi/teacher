@@ -1,8 +1,7 @@
 package com.example.admin.musicclassroom.fragment;
 
-import android.content.Intent;
-import android.graphics.Color;
-import android.net.http.SslError;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,15 +11,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.SslErrorHandler;
-import android.webkit.WebChromeClient;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.admin.musicclassroom.R;
 import com.example.admin.musicclassroom.Utils.MaskPopupWindow;
@@ -42,7 +34,6 @@ import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -56,14 +47,30 @@ public class Fragment_Teaching_Item extends mFragment {
     private ImageView iv_guide;
     private List<CourseVo> courseVoList;
     private GridViewAdaptehistoryList gridViewAdaptehistoryList;
-
+    private int demoFlag;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
         views = inflater.inflate(R.layout.fragment_teaching_item, null);
         x.view().inject(this, views);
-        gethistory();
+        init();
+
         return views;
+    }
+
+    private void init() {
+        //获取演示标识
+        SharedPreferences musicData = getContext().getSharedPreferences("MusicData", Context.MODE_PRIVATE);
+        demoFlag= musicData.getInt("demo", 0);
+        if(demoFlag==1){//获取本地数据
+            getDemo();
+        }else {//获取网络数据
+            gethistory();
+        }
+    }
+
+    private void getDemo() {
+
     }
 
     String json="{\n" +
@@ -79,56 +86,6 @@ public class Fragment_Teaching_Item extends mFragment {
             "\t\t\"wordAuthorName\": \"冼星海\",\n" +
             "\t\t\"anAuthorName\": \"贝多芬\",\n" +
             "\t\t\"mp3\": \"uploadimage/yuepuyin/故乡的小路.mp3\"\n" +
-            "\t}, {\n" +
-            "\t\t\"courseId\": 3,\n" +
-            "\t\t\"grade\": \"一年级\",\n" +
-            "\t\t\"term\": \"上学期\",\n" +
-            "\t\t\"unit\": \"第一单元\",\n" +
-            "\t\t\"courseName\": \"春晓\",\n" +
-            "\t\t\"courseImage\": \"uploadimage/suoluetu/20171011044123.jpg\",\n" +
-            "\t\t\"wordAuthorName\": \"冼星海\",\n" +
-            "\t\t\"anAuthorName\": \"贝多芬\",\n" +
-            "\t\t\"mp3\": \"uploadimage/yuepuyin/春晓.mp3\"\n" +
-            "\t}, {\n" +
-            "\t\t\"courseId\": 3,\n" +
-            "\t\t\"grade\": \"一年级\",\n" +
-            "\t\t\"term\": \"上学期\",\n" +
-            "\t\t\"unit\": \"第一单元\",\n" +
-            "\t\t\"courseName\": \"春晓\",\n" +
-            "\t\t\"courseImage\": \"uploadimage/suoluetu/20171011044123.jpg\",\n" +
-            "\t\t\"wordAuthorName\": \"冼星海\",\n" +
-            "\t\t\"anAuthorName\": \"贝多芬\",\n" +
-            "\t\t\"mp3\": \"uploadimage/yuepuyin/春晓.mp3\"\n" +
-            "\t}, {\n" +
-            "\t\t\"courseId\": 3,\n" +
-            "\t\t\"grade\": \"一年级\",\n" +
-            "\t\t\"term\": \"上学期\",\n" +
-            "\t\t\"unit\": \"第一单元\",\n" +
-            "\t\t\"courseName\": \"春晓\",\n" +
-            "\t\t\"courseImage\": \"uploadimage/suoluetu/20171011044123.jpg\",\n" +
-            "\t\t\"wordAuthorName\": \"冼星海\",\n" +
-            "\t\t\"anAuthorName\": \"贝多芬\",\n" +
-            "\t\t\"mp3\": \"uploadimage/yuepuyin/春晓.mp3\"\n" +
-            "\t}, {\n" +
-            "\t\t\"courseId\": 3,\n" +
-            "\t\t\"grade\": \"一年级\",\n" +
-            "\t\t\"term\": \"上学期\",\n" +
-            "\t\t\"unit\": \"第一单元\",\n" +
-            "\t\t\"courseName\": \"春晓\",\n" +
-            "\t\t\"courseImage\": \"uploadimage/suoluetu/20171011044123.jpg\",\n" +
-            "\t\t\"wordAuthorName\": \"冼星海\",\n" +
-            "\t\t\"anAuthorName\": \"贝多芬\",\n" +
-            "\t\t\"mp3\": \"uploadimage/yuepuyin/春晓.mp3\"\n" +
-            "\t}, {\n" +
-            "\t\t\"courseId\": 3,\n" +
-            "\t\t\"grade\": \"一年级\",\n" +
-            "\t\t\"term\": \"上学期\",\n" +
-            "\t\t\"unit\": \"第一单元\",\n" +
-            "\t\t\"courseName\": \"春晓\",\n" +
-            "\t\t\"courseImage\": \"uploadimage/suoluetu/20171011044123.jpg\",\n" +
-            "\t\t\"wordAuthorName\": \"冼星海\",\n" +
-            "\t\t\"anAuthorName\": \"贝多芬\",\n" +
-            "\t\t\"mp3\": \"uploadimage/yuepuyin/春晓.mp3\"\n" +
             "\t}, {\n" +
             "\t\t\"courseId\": 3,\n" +
             "\t\t\"grade\": \"一年级\",\n" +

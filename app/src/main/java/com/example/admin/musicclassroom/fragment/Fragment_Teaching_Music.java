@@ -1,8 +1,6 @@
 package com.example.admin.musicclassroom.fragment;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
@@ -21,7 +19,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.admin.musicclassroom.R;
 import com.example.admin.musicclassroom.Utils.FileUtils;
@@ -531,52 +528,6 @@ public class Fragment_Teaching_Music extends mFragment {
     @Event(value = R.id.btn_sendout, type = View.OnClickListener.class)
     private void ll_appreciate_gerenClick(View v) {
         changeCurrBtn(3);
-        //获取用户名
-        SharedPreferences musicData = getContext().getSharedPreferences("MusicData", Context.MODE_PRIVATE);
-        String teacherId = musicData.getString("musicname", "?");
-        //获取曲谱名称
-        String grade=courseVo.getStaffName();
-//        Toast.makeText(getActivity(), grade+"+"+teacherId, Toast.LENGTH_SHORT).show();
-        //上传
-        FinalHttp finalHttp = new FinalHttp();
-//        finalHttp.addHeader("token",  Variable.loginInfoVo.getData());
-        AjaxParams params = new AjaxParams();
-        params.put("COURSE", grade);
-        params.put("TEACHERID", teacherId);
-        AjaxCallBack<String> callBack = new AjaxCallBack<String>() {
-            @Override
-            public void onSuccess(String content) {
-                Log.i("MIDI",content);
-                if (content.equals("true")) {
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(getActivity(), "推送成功", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                } else {
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(getActivity(), "推送失败 请稍后再试", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-                }
-            }
-            @Override
-            public void onFailure(Throwable t, int errorNo, String strMsg) {
-                super.onFailure(t, errorNo, strMsg);
-                Log.i("strMsg",t+":"+strMsg+":"+errorNo);
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getActivity(), "推送失败 请稍后再试", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        };
-        finalHttp.post("http://tj-mj.cn/push/pushTagByCourse", params, callBack);
     }
     //全屏
     @Event(value = R.id.btn_fullscreen, type = View.OnClickListener.class)

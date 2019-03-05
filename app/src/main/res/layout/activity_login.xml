@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginLeft="@dimen/login_margin_left_right"
-            android:layout_marginRight="@dimen/login_margin_left_right"
+            android:layout_marginRight="@dimen/login_margin_right"
             android:layout_marginTop="@dimen/login_margin_top"
             android:background="@drawable/login_edittx_back">
 
@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="15dp"
-                android:text="账号："
+                android:text="账号"
                 android:textColor="#404040"
                 android:textSize="22sp" />
 
@@ -57,7 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginLeft="@dimen/login_margin_left_right"
-            android:layout_marginRight="@dimen/login_margin_left_right"
+            android:layout_marginRight="@dimen/login_margin_right"
             android:layout_marginTop="40dp"
             android:background="@drawable/login_edittx_back">
 
@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="15dp"
-                android:text="密码："
+                android:text="密码"
                 android:textColor="#404040"
                 android:textSize="22sp" />
             <EditText
@@ -85,17 +85,30 @@
                 android:inputType="textPassword"
                 android:textSize="22sp" />
         </RelativeLayout>
-
-        <Button
-            android:id="@+id/btn_login_onclik"
-            android:layout_width="400dp"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:layout_gravity="right"
-            android:layout_marginRight="@dimen/login_margin_left_right"
             android:layout_marginTop="40dp"
-            android:text="登录"
-            android:background="#CB0068"
-            />
+            >
+            <Button
+                android:id="@+id/btn_login_onclik"
+                android:layout_width="350dp"
+                android:layout_height="45dp"
+                android:layout_gravity="right"
+                android:layout_marginLeft="120dp"
+                android:text="登录"
+                android:background="#CB0068"
+                />
+            <ImageView
+                android:id="@+id/iv_demo"
+                android:layout_width="40dp"
+                android:layout_height="46dp"
+                android:src="@mipmap/ys"
+                android:layout_toRightOf="@id/btn_login_onclik"
+                android:layout_marginLeft="20dp"
+                />
+        </RelativeLayout>
+
     </LinearLayout>
 
 </RelativeLayout>

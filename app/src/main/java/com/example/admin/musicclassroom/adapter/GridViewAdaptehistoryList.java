@@ -58,7 +58,8 @@ public class GridViewAdaptehistoryList extends BaseAdapter {
         }
         final CourseVo item = getItem(position);
         Glide.with(context)
-                .load(Variable.accessaddress_img + item.getCourseImage().toString())
+//                .load(Variable.accessaddress_img + item.getCourseImage().toString())
+                .load("file:///android_asset/小雨沙沙沙/小雨缩略图.jpg")
                 .placeholder(R.mipmap.icon_default_bg)
                 .crossFade()
                 .into(vh.iv_cover);
