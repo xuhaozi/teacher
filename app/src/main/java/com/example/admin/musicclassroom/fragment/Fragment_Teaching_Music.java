@@ -1,5 +1,6 @@
 package com.example.admin.musicclassroom.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -19,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.admin.musicclassroom.R;
 import com.example.admin.musicclassroom.Utils.FileUtils;
@@ -53,7 +55,8 @@ public class Fragment_Teaching_Music extends mFragment {
     private View views;
     @ViewInject(R.id.tv_title)
     private TextView tv_title;
-
+    @ViewInject(R.id.AllKeys)
+    private LinearLayout AllKeys;
     @ViewInject(R.id.btn_key)
     private Button btn_key;
     @ViewInject(R.id.btn_staff)
@@ -91,7 +94,7 @@ public class Fragment_Teaching_Music extends mFragment {
     private Button[] arr_btn;// 数组，用于高亮
 
     private PanioMusic utils;// 工具类
-
+    private boolean isShowKeys = false;
     private Boolean ismusic=false;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -314,6 +317,7 @@ public class Fragment_Teaching_Music extends mFragment {
         arr_btn[2] = btn_spectrum;
         arr_btn[3] = btn_sendout;
         arr_btn[4] = btn_fullscreen;
+        isShowKeys = true;
         changeCurrBtn(0);
     }
 
@@ -333,16 +337,16 @@ public class Fragment_Teaching_Music extends mFragment {
 //        文件路径
          String filepath = "";
          filepath = getString();
-         File file = new File(filepath + "/布谷.xml");
-         File midifile = new File(filepath + "/布谷.mid");
+        File file = new File(filepath + "/你的名字叫什么.xml");
+        File filemp3 = new File(filepath + "/你的名字叫什么.mp3");
+        File midifile = new File(filepath + "/你的名字叫什么.mid");
          XMLParser xmlparser = new XMLParser(file, getActivity());
          scorePartWise = xmlparser.readFromXml();
          musicView.setScorePartWise(scorePartWise, getActivity(), midifile);
-
         final MediaPlayer mediaPlayer = new MediaPlayer();
         try {
             mediaPlayer.setWakeMode(getActivity(), PowerManager.PARTIAL_WAKE_LOCK);
-            mediaPlayer.setDataSource(Variable.accessaddress_img+courseVo.getMp3());
+            mediaPlayer.setDataSource(filemp3.getPath());
             mediaPlayer.prepare();
             mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
                 @Override
@@ -433,31 +437,31 @@ public class Fragment_Teaching_Music extends mFragment {
 
     public void UpdatabtnState(int index) {
         if (index == 0) {
-            arr_btn[index].setTextColor(getResources().getColor(R.color.btn_blue));
+            if (isShowKeys){
+                arr_btn[index].setTextColor(getResources().getColor(R.color.btn_blue));
+            }else {
+                arr_btn[0].setTextColor(getResources().getColor(R.color.white));
+            }
             arr_btn[1].setTextColor(getResources().getColor(R.color.white));
             arr_btn[2].setTextColor(getResources().getColor(R.color.white));
             arr_btn[3].setTextColor(getResources().getColor(R.color.white));
             arr_btn[4].setTextColor(getResources().getColor(R.color.white));
         } else if (index == 1) {
-            arr_btn[0].setTextColor(getResources().getColor(R.color.white));
             arr_btn[index].setTextColor(getResources().getColor(R.color.white));
             arr_btn[2].setTextColor(getResources().getColor(R.color.white));
             arr_btn[3].setTextColor(getResources().getColor(R.color.white));
             arr_btn[4].setTextColor(getResources().getColor(R.color.white));
         } else if (index == 2) {
-            arr_btn[0].setTextColor(getResources().getColor(R.color.white));
             arr_btn[1].setTextColor(getResources().getColor(R.color.white));
             arr_btn[index].setTextColor(getResources().getColor(R.color.btn_blue));
             arr_btn[3].setTextColor(getResources().getColor(R.color.white));
             arr_btn[4].setTextColor(getResources().getColor(R.color.white));
         } else if (index == 3) {
-            arr_btn[0].setTextColor(getResources().getColor(R.color.white));
             arr_btn[1].setTextColor(getResources().getColor(R.color.white));
             arr_btn[2].setTextColor(getResources().getColor(R.color.white));
             arr_btn[index].setTextColor(getResources().getColor(R.color.btn_blue));
             arr_btn[4].setTextColor(getResources().getColor(R.color.white));
         } else if (index == 4) {
-            arr_btn[0].setTextColor(getResources().getColor(R.color.white));
             arr_btn[1].setTextColor(getResources().getColor(R.color.white));
             arr_btn[2].setTextColor(getResources().getColor(R.color.white));
             arr_btn[3].setTextColor(getResources().getColor(R.color.white));
@@ -512,6 +516,13 @@ public class Fragment_Teaching_Music extends mFragment {
     @Event(value = R.id.btn_key, type = View.OnClickListener.class)
     private void ll_teaching_gerenClick(View v) {
         changeCurrBtn(0);
+        if (isShowKeys){
+            AllKeys.setVisibility(View.VISIBLE);
+            isShowKeys = false;
+        }else {
+            isShowKeys = true;
+            AllKeys.setVisibility(View.GONE);
+        }
     }
 
     //五线谱
@@ -534,5 +545,4 @@ public class Fragment_Teaching_Music extends mFragment {
     private void ll_drawingboard_gerenClick(View v) {
         changeCurrBtn(4);
     }
-
 }

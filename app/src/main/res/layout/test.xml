@@ -210,14 +210,6 @@
 
 
             </LinearLayout>
-
-
-
-
-
-
-
-
         </LinearLayout>
 
     </LinearLayout>
@@ -239,6 +231,7 @@
                 android:textSize="35dp"
                 android:text="播放"
                 android:visibility="invisible"
+                android:background="#000000"
                 android:textColor="@color/colorPrimary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

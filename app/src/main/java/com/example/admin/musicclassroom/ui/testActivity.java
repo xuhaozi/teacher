@@ -51,7 +51,7 @@ public class testActivity extends mActivity {
         music_view=findViewById(R.id.music_view);
             tv_play=findViewById(R.id.tv_play);
 //读取本地根目录
-             String filepath = "";
+            String filepath = "";
             filepath = getString();
             File file = new File(filepath + "/布谷.xml");
             File midifile = new File(filepath + "/布谷.mid");
@@ -63,10 +63,10 @@ public class testActivity extends mActivity {
             @Override
             public void onClick(View v) {
 //                播放mid跟弹的类
-//                String filepath = "";
-//                filepath = getString();
-//                File  mp3file = new File(filepath + "/布谷.mp3");
-//                music_view.playMusic(false, mp3file);
+                String filepath = "";
+                filepath = getString();
+                File  mp3file = new File(filepath + "/布谷.mp3");
+                music_view.playMusic(false, mp3file);
             }
         });
     }
