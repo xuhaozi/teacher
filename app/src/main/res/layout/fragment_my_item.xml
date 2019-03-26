@@ -103,7 +103,8 @@
                     android:layout_weight="1"
                     android:layout_width="0dip"
                     android:orientation="horizontal"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:id="@+id/ll_exit">
 
                     <ImageView
                         android:src="@mipmap/icon_out"

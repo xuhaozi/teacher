@@ -65,14 +65,24 @@ public class Fragment_Type_details extends mFragment {
 
     private ListViewAdapteMusicList listViewAdapteMusicList;
     private GridViewAdapteInstrumentalVIdeoList gridViewAdapteInstrumentalVIdeoList;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
-            savedInstanceState) {
-        views = inflater.inflate(R.layout.fragment_type_details, null);
+    protected int setContentView() {
+        return R.layout.fragment_type_details;
+    }
+
+    @Override
+    protected void init() {
+        views=rootView;
         x.view().inject(this, views);
         getmusicalInfo("2");
-        return views;
     }
+
+    @Override
+    protected void lazyLoad() {
+
+    }
+
 
     String str="吉他在流行音乐、摇滚音乐、蓝调、民歌、佛朗明哥中，常被视为主要乐器。而在古典音乐的领域里，吉他常以独奏或二重奏的型式演出；当然，在室内乐和管弦乐中，吉他亦扮演着相当程度的陪衬角色。 古典吉他与小提琴、钢琴并列为世界著名三大乐器。吉他在流行音乐、摇滚音乐、蓝调、民歌、佛朗明哥中，常被视为主要乐器。而在古典音乐的领域里，吉他常以独奏或二重奏的型式演出；当然，在室内乐和管弦乐中，吉他亦扮演着相当程度的陪衬角色。 古典吉他与小提琴、钢琴并列为世界著名三大乐器。吉他在流行音乐、摇滚音乐、蓝调、民歌、佛朗明哥中，常被视为主要乐器。而在古典音乐的领域里，吉他常以独奏或二重奏的型式演出；当然，在室内乐和管弦乐中，吉他亦扮演着相当程度的陪衬角色。 古典吉他与小提琴、钢琴并列为世界著名三大乐器。";
     private void InitView(MusicStyleVo musicStyleVo){

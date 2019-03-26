@@ -22,11 +22,12 @@ import java.util.List;
 public class GridViewAdapteMusicAllList extends BaseAdapter {
     private Context context;
     private List<MusicalVo> menus;
-
-    public GridViewAdapteMusicAllList(Context context, List<MusicalVo> menus) {
+    private int demoFlag;
+    public GridViewAdapteMusicAllList(Context context, List<MusicalVo> menus,int demoFlag) {
         this.context = context;
         if (menus == null) menus = new ArrayList<MusicalVo>();
         this.menus = menus;
+        this.demoFlag=demoFlag;
     }
     @Override
     public int getCount() {
@@ -57,11 +58,20 @@ public class GridViewAdapteMusicAllList extends BaseAdapter {
             vh = (ViewHolder) convertView.getTag();
         }
         final MusicalVo item = getItem(position);
-        Glide.with(context)
-                .load(Variable.accessaddress_img + item.getMusicalImage().toString())
-                .placeholder(R.mipmap.icon_default_bg)
-                .crossFade()
-                .into(vh.iv_cover);
+        if(demoFlag==1){
+            Glide.with(context)
+                    .load(item.getMusicalImage().toString())
+                    .placeholder(R.mipmap.icon_default_bg)
+                    .crossFade()
+                    .into(vh.iv_cover);
+        }else {
+            Glide.with(context)
+                    .load(Variable.accessaddress_img + item.getMusicalImage().toString())
+                    .placeholder(R.mipmap.icon_default_bg)
+                    .crossFade()
+                    .into(vh.iv_cover);
+        }
+
         vh.tv_title.setText(item.getMusicalName().toString().trim());
 
 

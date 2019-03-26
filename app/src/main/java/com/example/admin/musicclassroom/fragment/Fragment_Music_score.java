@@ -56,13 +56,23 @@ public class Fragment_Music_score extends mFragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
-            savedInstanceState) {
-        views = inflater.inflate(R.layout.fragment_music_score, null);
+    protected int setContentView() {
+        return R.layout.fragment_music_score;
+    }
+
+    @Override
+    protected void init() {
+        views=rootView;
         x.view().inject(this, views);
         initview();
-        return views;
     }
+
+    @Override
+    protected void lazyLoad() {
+
+    }
+
+
     public void initview(){
         //使用Bitmap工厂把图片加载进来
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_music_score);

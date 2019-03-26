@@ -8,9 +8,12 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.Window;
+import android.widget.Toast;
 
 import com.example.admin.musicclassroom.R;
+import com.example.admin.musicclassroom.entity.AutoVo;
 import com.example.admin.musicclassroom.entity.LoginInfoVo;
 import com.example.admin.musicclassroom.mActivity;
 import com.example.admin.musicclassroom.variable.Variable;
@@ -25,6 +28,7 @@ import org.xutils.x;
 
 @ContentView(R.layout.activity_welcomepage)
 public class Welcomepage_Activity extends mActivity {
+    private String token;
     /*
         *欢迎页
     */
@@ -39,38 +43,47 @@ public class Welcomepage_Activity extends mActivity {
 
     private void restoreInfo() {
         SharedPreferences sp = getSharedPreferences("MusicData", Context.MODE_PRIVATE);
-        if (sp != null && sp.getString("musicname", "") != null && sp.getString("musicpwd", "") != null) {
-            if (!sp.getString("musicname","").equals("")&&!sp.getString("musicpwd","").equals("")){
-                requestLogin(sp.getString("musicname", ""), sp.getString("musicpwd", ""));
+        token=sp.getString("token","");
+        if (sp != null && token != null ) {
+            if (!"".equals(token)){
+                requestLogin(token);
             }else {
                 Intent intent=new Intent(Welcomepage_Activity.this,LoginHomeActivity.class);
                 Welcomepage_Activity.this.startActivity(intent);
             }
+        }else {
+            Intent intent=new Intent(Welcomepage_Activity.this,LoginHomeActivity.class);
+            Welcomepage_Activity.this.startActivity(intent);
         }
     }
 
     /**
      * 请求登陆接口
      *
-     * @param name
-     * @param password
+     * @param token
      */
-    private void requestLogin(final String name, final String password) {
+    private void requestLogin(final String token) {
+        Log.i("restore",token);
         FinalHttp finalHttp = new FinalHttp();
+        finalHttp.addHeader("token", token);
         AjaxParams params = new AjaxParams();
-        params.put("name", name);
-        params.put("pwd", password);
         AjaxCallBack<String> callBack = new AjaxCallBack<String>() {
             @Override
             public void onSuccess(String content) {
-                Variable.loginInfoVo = new Gson().fromJson(content, LoginInfoVo.class);
-                if (Variable.loginInfoVo.getCode().equals("200")){
+                Log.i("restore",content);
+                AutoVo autoVo = new Gson().fromJson(content, AutoVo.class);
+                Variable.loginInfoVo=new LoginInfoVo(token);
+                if (autoVo.getCode()==200){
                     finish();
                     showMessage("登录成功");
+                    Log.i("restore",token);
                     Intent intent=new Intent(Welcomepage_Activity.this,MainActivity.class);
                     Welcomepage_Activity.this.startActivity(intent);
                 }else{
                     showMessage("登录失败");
+                    Log.i("restore","登录失败");
+                    Intent intent=new Intent(Welcomepage_Activity.this,LoginHomeActivity.class);
+                    Welcomepage_Activity.this.startActivity(intent);
                 }
             }
 
@@ -79,7 +92,7 @@ public class Welcomepage_Activity extends mActivity {
                 super.onFailure(t, errorNo, strMsg);
             }
         };
-        finalHttp.post(Variable.address_Login, params, callBack);
+        finalHttp.post(Variable.address_Automatic_logon, params, callBack);
     }
 
     private void InitViews() {

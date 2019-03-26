@@ -1,13 +1,18 @@
 package com.example.admin.musicclassroom.ui;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -35,6 +40,7 @@ import org.xutils.x;
 @ContentView(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity {
 
+    private static final int REQUEST_WRITE_EXTERNAL_STORAGE = 1;
     @ViewInject(R.id.ll_teaching)
     private LinearLayout ll_teaching;
     @ViewInject(R.id.ll_piano)
@@ -90,6 +96,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         x.view().inject(this);
+        //检查权限（NEED_PERMISSION）是否被授权 PackageManager.PERMISSION_GRANTED表示同意授权
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            //用户已经拒绝过一次，再次弹出权限申请对话框需要给用户一个解释
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission
+                    .WRITE_EXTERNAL_STORAGE)) {
+                Toast.makeText(this, "请开通相关权限，否则无法正常使用本应用！", Toast.LENGTH_SHORT).show();
+            }
+            //申请权限
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITE_EXTERNAL_STORAGE);
+
+        } else {
+            Toast.makeText(this, "授权成功！", Toast.LENGTH_SHORT).show();
+            Log.e("TAG", "checkPermission: 已经授权！");
+        }
         InitViews();
         changeCurrBtn(0);
 

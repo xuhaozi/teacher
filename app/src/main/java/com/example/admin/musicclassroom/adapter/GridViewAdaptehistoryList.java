@@ -21,11 +21,13 @@ import java.util.List;
 public class GridViewAdaptehistoryList extends BaseAdapter {
     private Context context;
     private List<CourseVo> menus;
+    private int demoFlag;
 
-    public GridViewAdaptehistoryList(Context context, List<CourseVo> menus) {
+    public GridViewAdaptehistoryList(Context context, List<CourseVo> menus,int demoFlag) {
         this.context = context;
         if (menus == null) menus = new ArrayList<CourseVo>();
         this.menus = menus;
+        this.demoFlag=demoFlag;
     }
     @Override
     public int getCount() {
@@ -57,12 +59,20 @@ public class GridViewAdaptehistoryList extends BaseAdapter {
             vh = (ViewHolder) convertView.getTag();
         }
         final CourseVo item = getItem(position);
-        Glide.with(context)
-//                .load(Variable.accessaddress_img + item.getCourseImage().toString())
-                .load("file:///android_asset/小雨沙沙沙/小雨缩略图.jpg")
-                .placeholder(R.mipmap.icon_default_bg)
-                .crossFade()
-                .into(vh.iv_cover);
+        if(demoFlag==1){
+            Glide.with(context)
+                    .load(item.getCourseImage().toString())
+                    .placeholder(R.mipmap.icon_default_bg)
+                    .crossFade()
+                    .into(vh.iv_cover);
+        }else {
+            Glide.with(context)
+                    .load(Variable.accessaddress_img + item.getCourseImage().toString())
+                    .placeholder(R.mipmap.icon_default_bg)
+                    .crossFade()
+                    .into(vh.iv_cover);
+        }
+
         vh.tv_title.setText(item.getCourseName().toString().trim());
         vh.tv_author.setText(item.getWordAuthorName()+" "+item.getAnAuthorName()+" ".toString().trim());
 

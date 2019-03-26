@@ -79,4 +79,14 @@ public class MusicianVo {
         this.musicianMusic = musicianMusic;
         this.musicVoList = musicVoList;
     }
+    public MusicianVo(String musicianName, String musicianImage){
+        this.musicianName = musicianName;
+        this.musicianImage = musicianImage;
+    }
+    public MusicianVo(String musicianName, String musicianIntroduce, String musicianImage, List<MusicVo> musicVoList){
+        this.musicianName = musicianName;
+        this.musicianIntroduce = musicianIntroduce;
+        this.musicianImage = musicianImage;
+        this.musicVoList = musicVoList;
+    }
 }

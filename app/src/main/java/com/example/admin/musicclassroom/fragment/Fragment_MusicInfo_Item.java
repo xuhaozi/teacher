@@ -1,12 +1,15 @@
 package com.example.admin.musicclassroom.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +18,17 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.MediaController;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.example.admin.musicclassroom.R;
 import com.example.admin.musicclassroom.adapter.GridViewAdaptehistoryList;
 import com.example.admin.musicclassroom.entity.CourseVo;
 import com.example.admin.musicclassroom.mFragment;
 import com.example.admin.musicclassroom.variable.Variable;
+import com.example.admin.musicclassroom.widget.MessageEvent;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -29,6 +36,7 @@ import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
 import net.tsz.afinal.http.AjaxParams;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.common.Callback;
@@ -42,6 +50,7 @@ import java.util.List;
 import java.util.Map;
 
 
+@SuppressLint("ValidFragment")
 public class Fragment_MusicInfo_Item extends mFragment {
     //乐谱核心界面
     private View views;
@@ -70,17 +79,55 @@ public class Fragment_MusicInfo_Item extends mFragment {
     private Fragment mContent, fragment_Teaching_Music, fragment_Teaching_Video, fragment_Teaching_Musictheory, fragment_Teaching_MusicalInstruments, fragment_Teaching_Exercises;//首页模块中的碎片
     private FragmentManager fm;
     private FragmentTransaction ft;
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
-            savedInstanceState) {
-        views = inflater.inflate(R.layout.fragment_musicinfo_item, null);
-        x.view().inject(this, views);
-        GetdetailsInfo();
-        InitViews();
-        changeCurrBtn(0);
-        return views;
+
+    private int demoFlag;
+    private Long courseId;
+    private int position;//本地数据所用下标
+    private int videoFlag=0;//发送eventbus的标识
+
+    public Fragment_MusicInfo_Item(Long courseId) {
+        super();
+        this.courseId=courseId;
     }
 
+    public Fragment_MusicInfo_Item(Long courseId, int i) {
+        super();
+        this.courseId=courseId;
+        this.position=i;
+    }
+
+    @Override
+    protected int setContentView() {
+        return R.layout.fragment_musicinfo_item;
+    }
+
+    @Override
+    protected void init() {
+        views=rootView;
+        x.view().inject(this, views);
+        InitViews();
+        initDemo();
+
+        changeCurrBtn(0);
+    }
+
+    @Override
+    protected void lazyLoad() {
+
+    }
+
+
+    private void initDemo() {
+        //获取演示标识
+        SharedPreferences musicData = getContext().getSharedPreferences("MusicData", Context.MODE_PRIVATE);
+        demoFlag= musicData.getInt("demo", 0);
+        String[] mTitle=new String[]{"小雨沙沙沙","布谷","祝你圣诞快乐"};
+        if(demoFlag==1){
+            tv_title.setText(mTitle[position]);
+        }else {
+            GetdetailsInfo();
+        }
+    }
     /**
      * 获取详情数据
      */
@@ -124,10 +171,10 @@ public class Fragment_MusicInfo_Item extends mFragment {
         arr_img[4] = btn_exercises;
 
         fragment_Teaching_Music = new Fragment_Teaching_Music();
-        fragment_Teaching_Video = new Fragment_Teaching_Video();
-        fragment_Teaching_Musictheory = new Fragment_Teaching_Musictheory();
-        fragment_Teaching_MusicalInstruments = new Fragment_Teaching_MusicalInstruments();
-        fragment_Teaching_Exercises = new Fragment_Teaching_Exercises();
+        fragment_Teaching_Video = new Fragment_Teaching_Video(courseId,position);
+        fragment_Teaching_Musictheory = new Fragment_Teaching_Musictheory(courseId,position);
+        fragment_Teaching_MusicalInstruments = new Fragment_Teaching_MusicalInstruments(courseId,position);
+        fragment_Teaching_Exercises = new Fragment_Teaching_Exercises(courseId,position);
         setDefaultFragment(fragment_Teaching_Music);
     }
 
@@ -234,6 +281,10 @@ public class Fragment_MusicInfo_Item extends mFragment {
     //乐谱
     @Event(value = R.id.btn_music, type = View.OnClickListener.class)
     private void ll_teaching_gerenClick(View v) {
+        if(videoFlag==1){
+            EventBus.getDefault().post(new MessageEvent("a"));
+            videoFlag=0;
+        }
         changeCurrBtn(0);
         switchContent(fragment_Teaching_Music);
     }
@@ -242,23 +293,36 @@ public class Fragment_MusicInfo_Item extends mFragment {
     @Event(value = R.id.btn_video, type = View.OnClickListener.class)
     private void ll_piano_gerenClick(View v) {
         changeCurrBtn(1);
+        videoFlag=1;
         switchContent(fragment_Teaching_Video);
     }
     //乐理
     @Event(value = R.id.btn_musictheory, type = View.OnClickListener.class)
     private void ll_musictheory_gerenClick(View v) {
+        if(videoFlag==1){
+            EventBus.getDefault().post(new MessageEvent("a"));
+            videoFlag=0;
+        }
         changeCurrBtn(2);
         switchContent(fragment_Teaching_Musictheory);
     }
     //器乐
     @Event(value = R.id.btn_instrumentalmusic, type = View.OnClickListener.class)
     private void ll_appreciate_gerenClick(View v) {
+        if(videoFlag==1){
+            EventBus.getDefault().post(new MessageEvent("a"));
+            videoFlag=0;
+        }
         changeCurrBtn(3);
         switchContent(fragment_Teaching_MusicalInstruments);
     }
     //习题
     @Event(value = R.id.btn_exercises, type = View.OnClickListener.class)
     private void ll_drawingboard_gerenClick(View v) {
+        if(videoFlag==1){
+            EventBus.getDefault().post(new MessageEvent("a"));
+            videoFlag=0;
+        }
         changeCurrBtn(4);
         switchContent(fragment_Teaching_Exercises);
     }
@@ -267,9 +331,14 @@ public class Fragment_MusicInfo_Item extends mFragment {
     //返回
     @Event(value = R.id.iv_return, type = View.OnClickListener.class)
     private void iv_returnClick(View v) {
+        if(videoFlag==1){
+            EventBus.getDefault().post(new MessageEvent("a"));
+            videoFlag=0;
+        }
         Fragment videoFragment = new Fragment_Teaching_Item();
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.add(R.id.video_fragment, videoFragment).commit();
+
     }
 
 

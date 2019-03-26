@@ -23,7 +23,7 @@ public class MaskPopupWindow extends PopupWindow {
     private View mMenuView;
     private ImageView iv_mask;
 
-    int[] markImg = new int[]{R.drawable.mask1, R.drawable.mask2, R.drawable.mask3, R.drawable.mask4, R.drawable.mask5, R.drawable.mask6, R.drawable.mask7, R.drawable.mask8, R.drawable.mask9, R.drawable.mask10, R.drawable.mask11};
+    int[] markImg = new int[]{R.drawable.mask_01, R.drawable.mask_02, R.drawable.mask_03, R.drawable.mask_04, R.drawable.mask_05, R.drawable.mask_06, R.drawable.mask_07, R.drawable.mask_08, R.drawable.mask_09, R.drawable.mask_10, R.drawable.mask_11};
     int Oncount = 1;
 
     private ImageView iv_left,iv_right,clear;

@@ -83,6 +83,4 @@ public class GridViewAdapteInstrumentalVIdeoList extends BaseAdapter {
         private TextView tv_title;
         private LinearLayout ll_bg;
     }
-
-
 }

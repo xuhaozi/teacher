@@ -2,6 +2,7 @@ package com.example.admin.musicclassroom.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
@@ -96,16 +97,41 @@ public class Fragment_Teaching_Music extends mFragment {
     private PanioMusic utils;// 工具类
     private boolean isShowKeys = false;
     private Boolean ismusic=false;
+
+    private int demoFlag;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
-            savedInstanceState) {
-        views = inflater.inflate(R.layout.fragment_teaching_music, null);
-        x.view().inject(this, views);
-        getdetail("1");
-        InitViews();
-        InitKey(views);
-        return views;
+    protected int setContentView() {
+        return R.layout.fragment_teaching_music;
     }
+
+    @Override
+    protected void init() {
+        views=rootView;
+        x.view().inject(this, views);
+        InitKey(views);
+        InitViews();
+        initDemo();
+
+    }
+
+    private void initDemo() {
+        SharedPreferences musicData = getContext().getSharedPreferences("MusicData", Context.MODE_PRIVATE);
+        demoFlag= musicData.getInt("demo", 0);
+        if(demoFlag==1){
+
+        }else {
+            getdetail("1");
+
+        }
+    }
+
+    @Override
+    protected void lazyLoad() {
+
+    }
+
+
     private void InitKey(View view){
         soundPool = new SoundPool(6, AudioManager.STREAM_MUSIC, 0);
         // 新建工具类

@@ -90,4 +90,19 @@ public class MusicalVo {
         this.musicVoList = musicVoList;
         this.videoVoList = videoVoList;
     }
+    public MusicalVo(String musicalName, String musicalImage, String musicalMp3, String musicalIntroduce, List<MusicVo> musicVoList, List<VideoVo> videoVoList){
+        this.musicalName = musicalName;
+        this.musicalImage = musicalImage;
+        this.musicalMp3 = musicalMp3;
+        this.musicalIntroduce = musicalIntroduce;
+        this.musicVoList = musicVoList;
+        this.videoVoList = videoVoList;
+    }
+    public MusicalVo(String musicalName, String musicalImage){
+        this.musicalName = musicalName;
+        this.musicalImage = musicalImage;
+    }
+    public MusicalVo(){
+
+    }
 }

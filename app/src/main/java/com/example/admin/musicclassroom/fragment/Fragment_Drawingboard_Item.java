@@ -34,14 +34,24 @@ public class Fragment_Drawingboard_Item extends mFragment {
     private FragmentTransaction ft;
     private Fragment mContent, fragment_Drawing_board, fragment_Music_score;
     private Button[] arr_img;// 图标的数组，用于文字高亮
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
-            savedInstanceState) {
-        views = inflater.inflate(R.layout.fragment_drawingboard_item, null);
+    protected int setContentView() {
+        return R.layout.fragment_drawingboard_item;
+    }
+
+    @Override
+    protected void init() {
+        views=rootView;
         x.view().inject(this, views);
         InitViews();
-        return views;
     }
+
+    @Override
+    protected void lazyLoad() {
+
+    }
+
 
     //初始化fragment
     private void InitViews() {

@@ -167,13 +167,13 @@
 
     <ImageView
         android:id="@+id/iv_video"
-        android:paddingRight="100dp"
-        android:paddingBottom="100dp"
+        android:layout_marginRight="100dp"
+        android:layout_marginBottom="100dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:src="@mipmap/icon_video_musictheory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></ImageView>
+        android:layout_width="174dp"
+        android:layout_height="174dp"></ImageView>
 
 
 

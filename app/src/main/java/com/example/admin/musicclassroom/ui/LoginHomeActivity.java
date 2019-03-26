@@ -11,6 +11,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -61,6 +62,7 @@ public class LoginHomeActivity extends mActivity {
 
     private String name;
     private String password;
+    private SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,6 +97,9 @@ public class LoginHomeActivity extends mActivity {
             @Override
             public void onSuccess(String content) {
                     Variable.loginInfoVo = new Gson().fromJson(content, LoginInfoVo.class);
+                    editor.putString("token", Variable.loginInfoVo.getData());//保存token
+                    editor.commit();
+                    Log.i("token",Variable.loginInfoVo.getData());
                     if (Variable.loginInfoVo!=null||Variable.loginInfoVo.getCode().equals("200")){
                         finish();
                         showMessage("登录成功");
@@ -120,7 +125,7 @@ public class LoginHomeActivity extends mActivity {
         et_userPhone.setText(sp.getString("musicname", ""));
     }
     private void meminfo(String usr, String pwd) {
-        SharedPreferences.Editor editor = getSharedPreferences("MusicData", Context.MODE_PRIVATE).edit();
+        editor = getSharedPreferences("MusicData", Context.MODE_PRIVATE).edit();
         editor.putString("musicname", usr);
         editor.putString("musicpwd", pwd);
         editor.putInt("demo",0);//修改演示标识
@@ -137,6 +142,7 @@ public class LoginHomeActivity extends mActivity {
     private void btn_codeClick(View v) {
         switch (v.getId()){
             case R.id.btn_login_onclik://正常登陆
+                Log.i("tag","login");
                 name = et_userPhone.getText().toString().trim();
                 password = et_userPassword.getText().toString().trim();
                 meminfo(name, password);

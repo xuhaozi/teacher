@@ -23,11 +23,12 @@ import java.util.List;
 public class ListViewAdapteTheoryListItem extends BaseAdapter {
     private Context context;
     private List<TheoryVo> menus;
-
-    public ListViewAdapteTheoryListItem(Context context, List<TheoryVo> menus) {
+    private int demoFlag;
+    public ListViewAdapteTheoryListItem(Context context, List<TheoryVo> menus,int demoFlag) {
         this.context = context;
         if (menus == null) menus = new ArrayList<TheoryVo>();
         this.menus = menus;
+        this.demoFlag=demoFlag;
     }
     @Override
     public int getCount() {
@@ -57,12 +58,21 @@ public class ListViewAdapteTheoryListItem extends BaseAdapter {
             vh = (ViewHolder) convertView.getTag();
         }
         final TheoryVo item = getItem(position);
-        Glide.with(context)
-                .load(Variable.accessaddress_img+item.getTheoryImage())
-                .placeholder(R.mipmap.icon_default_bg)
-                .crossFade()
-                .into(vh.iv_cover);
-        vh.tv_title.setText(item.getTheoryChapter().toString().trim());
+        if(demoFlag==1){
+            Glide.with(context)
+                    .load(item.getTheoryImage())
+                    .placeholder(R.mipmap.icon_default_bg)
+                    .crossFade()
+                    .into(vh.iv_cover);
+        }else {
+            Glide.with(context)
+                    .load(Variable.accessaddress_img+item.getTheoryImage())
+                    .placeholder(R.mipmap.icon_default_bg)
+                    .crossFade()
+                    .into(vh.iv_cover);
+        }
+
+        vh.tv_title.setText(item.getTheoryChapter().toString()+"-"+item.getTheoryName().toString());
 
 
         return convertView;

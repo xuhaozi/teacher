@@ -39,14 +39,31 @@ public class Fragment_Appreciate_Item extends mFragment {
     private Fragment mContent, fragment_Appreciate_Instrumental, fragment_Appreciate_Type, fragment_Appreciate_Musician;
 
     private Button[] arr_img;// 图标的数组，用于文字高亮
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
-            savedInstanceState) {
-        views = inflater.inflate(R.layout.fragment_appreciate_item, null);
-        x.view().inject(this, views);
-        InitViews();
-        return views;
+    protected int setContentView() {
+        return R.layout.fragment_appreciate_item;
     }
+
+    @Override
+    protected void init() {
+        views=rootView;
+        x.view().inject(this, views);
+        initDemo();
+
+    }
+
+    private void initDemo() {
+
+        InitViews();
+    }
+
+    @Override
+    protected void lazyLoad() {
+
+    }
+
+
 
     //初始化fragment
     private void InitViews() {

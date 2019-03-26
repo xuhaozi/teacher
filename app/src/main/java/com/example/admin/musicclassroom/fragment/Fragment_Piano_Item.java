@@ -18,12 +18,19 @@ public class Fragment_Piano_Item extends mFragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
-            savedInstanceState) {
-        views = inflater.inflate(R.layout.fragment_piano_item, null);
-        x.view().inject(this, views);
+    protected int setContentView() {
+        return R.layout.fragment_piano_item;
+    }
 
-        return views;
+    @Override
+    protected void init() {
+        views=rootView;
+        x.view().inject(this, views);
+    }
+
+    @Override
+    protected void lazyLoad() {
+
     }
 
 }

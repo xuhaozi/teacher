@@ -1,5 +1,7 @@
 package com.example.admin.musicclassroom.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -32,6 +34,7 @@ import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -52,19 +55,62 @@ public class Fragment_Appreciate_Instrumental extends mFragment {
     private MyGridView gv_datas;
 
     private List<MusicalVo> musicalVos;
+    private List<MusicalVo> musicalVosInland;//囯内本地数据
+    private List<MusicalVo> musicalVosForeign;//国外本地数据
 
     private GridViewAdapteMusicAllList gridViewAdapteMusicAllList;
 
     private TextView[] arr_text;// 图标的数组，用于文字高亮
+    private int demoFlag;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
-            savedInstanceState) {
-        views = inflater.inflate(R.layout.fragment_appreciate_instrumental, null);
+    protected int setContentView() {
+        return R.layout.fragment_appreciate_instrumental;
+    }
+
+    @Override
+    protected void init() {
+        views=rootView;
         x.view().inject(this, views);
         InitViews();
-        getmusicall("国内");
-        return views;
+        initDemo();
+    }
+
+    @Override
+    protected void lazyLoad() {
+
+    }
+
+
+    private void initDemo() {
+        SharedPreferences musicData = getContext().getSharedPreferences("MusicData", Context.MODE_PRIVATE);
+        demoFlag= musicData.getInt("demo", 0);
+        if(demoFlag==1){//获取本地数据
+            musicalVosInland=new ArrayList<>();
+            musicalVosInland.add(new MusicalVo("铃鼓","file:///android_asset/祝你圣诞快乐/铃鼓/铃鼓.png"));
+            musicalVosForeign=new ArrayList<>();
+            musicalVosForeign.add(new MusicalVo("钢琴","file:///android_asset/布谷/钢琴/钢琴.jpg"));
+            getDemoFlagData("国内");
+        }else {//获取网络数据
+            getmusicall("国内");
+        }
+    }
+    private void getDemoFlagData(final String str){
+        if("国内".equals(str)){
+            musicalVos=musicalVosInland;
+        }else if("国外".equals(str)){
+            musicalVos=musicalVosForeign;
+        }
+        gridViewAdapteMusicAllList=new GridViewAdapteMusicAllList(getActivity(),musicalVos,demoFlag);
+        gv_datas.setAdapter(gridViewAdapteMusicAllList);
+        gv_datas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Fragment videoFragment = new Fragment_Instrumental_details(musicalVos.get(i).getMusicalId(),str);
+                FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+                transaction.add(R.id.video_fragment, videoFragment).commit();
+            }
+        });
     }
     //初始化fragment
     private void InitViews() {
@@ -87,7 +133,7 @@ public class Fragment_Appreciate_Instrumental extends mFragment {
     /**
      * 通过国家获取音乐风格
      */
-    private void getmusicall(String str) {
+    private void getmusicall(final String str) {
         FinalHttp finalHttp = new FinalHttp();
         finalHttp.addHeader("token",  Variable.loginInfoVo.getData());
         AjaxParams params = new AjaxParams();
@@ -100,12 +146,12 @@ public class Fragment_Appreciate_Instrumental extends mFragment {
                     musicalVos = new Gson().fromJson(obj.getString("data"), new TypeToken<List<MusicalVo>>() {
                     }.getType());
                     if (musicalVos != null) {
-                        gridViewAdapteMusicAllList=new GridViewAdapteMusicAllList(getActivity(),musicalVos);
+                        gridViewAdapteMusicAllList=new GridViewAdapteMusicAllList(getActivity(),musicalVos,demoFlag);
                         gv_datas.setAdapter(gridViewAdapteMusicAllList);
                         gv_datas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                Fragment videoFragment = new Fragment_Instrumental_details();
+                                Fragment videoFragment = new Fragment_Instrumental_details(musicalVos.get(i).getMusicalId(),str);
                                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
                                 transaction.add(R.id.video_fragment, videoFragment).commit();
                             }
@@ -130,7 +176,12 @@ public class Fragment_Appreciate_Instrumental extends mFragment {
     private void tv_domesticClick(View v) {
         changeCurrBtn(0);
         tv_Choice.setText("国内器乐");
-        getmusicall("国内");
+        if (demoFlag==1){
+            getDemoFlagData("国内");
+        }else {
+            getmusicall("国内");
+        }
+
     }
 
     //国外器乐
@@ -138,8 +189,11 @@ public class Fragment_Appreciate_Instrumental extends mFragment {
     private void tv_abroadClick(View v) {
         changeCurrBtn(1);
         tv_Choice.setText("国外器乐");
-        getmusicall("国外");
-
+        if (demoFlag==1){
+            getDemoFlagData("国外");
+        }else {
+            getmusicall("国外");
+        }
     }
 
 

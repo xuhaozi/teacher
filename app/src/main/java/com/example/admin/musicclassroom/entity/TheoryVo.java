@@ -89,4 +89,10 @@ public class TheoryVo {
         this.videoVoList = videoVoList;
         this.theoryVoList = theoryVoList;
     }
+    public TheoryVo(String theoryChapter, String theoryName, String theoryImage, List<VideoVo> videoVoList){
+        this.theoryChapter = theoryChapter;
+        this.theoryName = theoryName;
+        this.theoryImage = theoryImage;
+        this.videoVoList = videoVoList;
+    }
 }

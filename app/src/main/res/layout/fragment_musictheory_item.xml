@@ -75,31 +75,26 @@
             android:layout_width="match_parent"
             android:layout_height="0dip"
             android:layout_weight="10">
-                >
-
-                <LinearLayout
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/vp_musictheory"
+                    android:layout_marginLeft="62dp"
+                    android:layout_marginRight="62dp"
+                    android:layout_marginBottom="85dp"
+                    android:layout_marginTop="85dp"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"/>
 
-                    <com.example.admin.musicclassroom.widget.MyGridView
-                        android:id="@+id/gv_datas"
-                        android:numColumns="4"
-                        android:verticalSpacing="10dp"
-                        android:horizontalSpacing="15dp"
-                        android:fadeScrollbars="true"
-                        android:background="#F1F0F5"
+                    <LinearLayout
+                        android:id="@+id/ll_musictheory"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"></com.example.admin.musicclassroom.widget.MyGridView>
-
-
-
-
-
-
-            </LinearLayout>
-
+                        android:layout_height="85dp"
+                        android:layout_alignParentBottom="true"
+                        android:gravity="center"
+                        android:orientation="horizontal" />
+            </RelativeLayout>
 
         </LinearLayout>
     </LinearLayout>

@@ -7,6 +7,10 @@ public class LoginInfoVo {
     private String data;
     private String timestamp;
 
+    public LoginInfoVo(String data) {
+        this.data = data;
+    }
+
     public LoginInfoVo(String code, String msg, String data, String timestamp) {
         this.code = code;
         this.msg = msg;

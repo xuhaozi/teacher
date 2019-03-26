@@ -1,5 +1,7 @@
 package com.example.admin.musicclassroom.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -8,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.admin.musicclassroom.R;
 import com.example.admin.musicclassroom.adapter.GridViewAdapteMusicAllList;
@@ -30,6 +33,7 @@ import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -50,27 +54,70 @@ public class Fragment_Appreciate_Musician extends mFragment {
     private MyGridView gv_datas;
 
     private List<MusicianVo> musicianVos;
+    private List<MusicianVo> musicianVosInland;//囯内本地数据
+    private List<MusicianVo> musicianVosForeign;//国外本地数据
 
     private GridViewAdapteMusicianList gridViewAdapteMusicianList;
 
     private TextView[] arr_text;// 图标的数组，用于文字高亮
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
-            savedInstanceState) {
-        views = inflater.inflate(R.layout.fragment_appreciate_musician, null);
-        x.view().inject(this, views);
-        InitViews();
 
-        return views;
+    private int demoFlag;
+
+    @Override
+    protected int setContentView() {
+        return R.layout.fragment_appreciate_musician;
     }
 
+    @Override
+    protected void init() {
+        views=rootView;
+        x.view().inject(this, views);
+        InitViews();
+        initDemo();
+    }
+
+    @Override
+    protected void lazyLoad() {
+
+    }
+
+
+    private void initDemo() {
+        SharedPreferences musicData = getContext().getSharedPreferences("MusicData", Context.MODE_PRIVATE);
+        demoFlag= musicData.getInt("demo", 0);
+        if(demoFlag==1){//获取本地数据
+            musicianVosInland=new ArrayList<>();
+            musicianVosInland.add(new MusicianVo("马友友","file:///android_asset/马友友/马友友.jpg"));
+            musicianVosForeign=new ArrayList<>();
+            musicianVosForeign.add(new MusicianVo("贝多芬","file:///android_asset/贝多芬/贝多芬.jpg"));
+            getDemoFlagData("国内");
+        }else {//获取网络数据
+            getMusician("国内");
+        }
+    }
+    private void getDemoFlagData(final String str){
+        if("国内".equals(str)){
+            musicianVos=musicianVosInland;
+        }else if("国外".equals(str)){
+            musicianVos=musicianVosForeign;
+        }
+        gridViewAdapteMusicianList=new GridViewAdapteMusicianList(getActivity(),musicianVos,demoFlag);
+        gv_datas.setAdapter(gridViewAdapteMusicianList);
+        gv_datas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Fragment videoFragment = new Fragment_Musician_details(musicianVos.get(i).getMusicianId(),str);
+                FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+                transaction.add(R.id.video_fragment, videoFragment).commit();
+            }
+        });
+    }
     //初始化fragment
     private void InitViews() {
         arr_text = new TextView[2];
         arr_text[0] = tv_domestic;
         arr_text[1] = tv_abroad;
         changeCurrBtn(0);
-        getMusician("国内");
     }
 
     // 高亮按钮
@@ -85,7 +132,7 @@ public class Fragment_Appreciate_Musician extends mFragment {
     /**
      * 通过音乐家名称搜索音乐家
      */
-    private void getMusician(String str) {
+    private void getMusician(final String str) {
         FinalHttp finalHttp = new FinalHttp();
         finalHttp.addHeader("token",  Variable.loginInfoVo.getData());
         AjaxParams params = new AjaxParams();
@@ -103,7 +150,7 @@ public class Fragment_Appreciate_Musician extends mFragment {
                         gv_datas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                Fragment videoFragment = new Fragment_Musician_details();
+                                Fragment videoFragment = new Fragment_Musician_details(musicianVos.get(i).getMusicianId(),str);
                                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
                                 transaction.add(R.id.video_fragment, videoFragment).commit();
                             }
@@ -127,7 +174,11 @@ public class Fragment_Appreciate_Musician extends mFragment {
     private void tv_domesticClick(View v) {
         changeCurrBtn(0);
         tv_Choice.setText("国内音乐家");
-        getMusician("国内");
+        if (demoFlag==1){
+            getDemoFlagData("国内");
+        }else {
+            getMusician("国内");
+        }
     }
 
     //国外器乐
@@ -135,7 +186,11 @@ public class Fragment_Appreciate_Musician extends mFragment {
     private void tv_abroadClick(View v) {
         changeCurrBtn(1);
         tv_Choice.setText("国外音乐家");
-        getMusician("国外");
+        if (demoFlag==1){
+            getDemoFlagData("国外");
+        }else {
+            getMusician("国外");
+        }
 
     }
 

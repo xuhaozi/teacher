@@ -18,12 +18,20 @@ public class Fragment_Game_Item extends mFragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
-            savedInstanceState) {
-        views = inflater.inflate(R.layout.fragment_game_item, null);
-        x.view().inject(this, views);
-
-        return views;
+    protected int setContentView() {
+        return R.layout.fragment_game_item;
     }
+
+    @Override
+    protected void init() {
+        views=rootView;
+        x.view().inject(this, views);
+    }
+
+    @Override
+    protected void lazyLoad() {
+
+    }
+
 
 }

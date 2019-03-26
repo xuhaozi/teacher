@@ -1,10 +1,12 @@
 package com.example.admin.musicclassroom.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Gravity;
@@ -48,17 +50,26 @@ public class Fragment_Teaching_Item extends mFragment {
     private List<CourseVo> courseVoList;
     private GridViewAdaptehistoryList gridViewAdaptehistoryList;
     private int demoFlag;
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
-            savedInstanceState) {
-        views = inflater.inflate(R.layout.fragment_teaching_item, null);
-        x.view().inject(this, views);
-        init();
 
-        return views;
+    @Override
+    protected int setContentView() {
+        return R.layout.fragment_teaching_item;
+
     }
 
-    private void init() {
+    @Override
+    protected void init() {
+        x.view().inject(this, rootView);
+        initDemo();
+    }
+
+    @Override
+    protected void lazyLoad() {
+
+    }
+
+
+    private void initDemo() {
         //获取演示标识
         SharedPreferences musicData = getContext().getSharedPreferences("MusicData", Context.MODE_PRIVATE);
         demoFlag= musicData.getInt("demo", 0);
@@ -69,9 +80,7 @@ public class Fragment_Teaching_Item extends mFragment {
         }
     }
 
-    private void getDemo() {
 
-    }
 
     String json="{\n" +
             "\t\"code\": 200,\n" +
@@ -81,34 +90,59 @@ public class Fragment_Teaching_Item extends mFragment {
             "\t\t\"grade\": \"一年级\",\n" +
             "\t\t\"term\": \"上学期\",\n" +
             "\t\t\"unit\": \"第一单元\",\n" +
-            "\t\t\"courseName\": \"故乡的小路\",\n" +
-            "\t\t\"courseImage\": \"uploadimage/suoluetu/20171019040710.jpg\",\n" +
-            "\t\t\"wordAuthorName\": \"冼星海\",\n" +
-            "\t\t\"anAuthorName\": \"贝多芬\",\n" +
+            "\t\t\"courseName\": \"小雨沙沙沙\",\n" +
+            "\t\t\"courseImage\": \"file:///android_asset/小雨沙沙沙/小雨缩略图.jpg\",\n" +
+            "\t\t\"wordAuthorName\": \"金月苓\",\n" +
+            "\t\t\"anAuthorName\": \"\",\n" +
             "\t\t\"mp3\": \"uploadimage/yuepuyin/故乡的小路.mp3\"\n" +
             "\t}, {\n" +
             "\t\t\"courseId\": 3,\n" +
             "\t\t\"grade\": \"一年级\",\n" +
             "\t\t\"term\": \"上学期\",\n" +
             "\t\t\"unit\": \"第一单元\",\n" +
-            "\t\t\"courseName\": \"春晓\",\n" +
-            "\t\t\"courseImage\": \"uploadimage/suoluetu/20171011044123.jpg\",\n" +
-            "\t\t\"wordAuthorName\": \"冼星海\",\n" +
-            "\t\t\"anAuthorName\": \"贝多芬\",\n" +
+            "\t\t\"courseName\": \"布谷\",\n" +
+            "\t\t\"courseImage\": \"file:///android_asset/布谷/布谷缩略图.jpg\",\n" +
+            "\t\t\"wordAuthorName\": \"德国儿童歌曲\",\n" +
+            "\t\t\"anAuthorName\": \"\",\n" +
             "\t\t\"mp3\": \"uploadimage/yuepuyin/春晓.mp3\"\n" +
             "\t}, {\n" +
             "\t\t\"courseId\": 3,\n" +
             "\t\t\"grade\": \"一年级\",\n" +
             "\t\t\"term\": \"上学期\",\n" +
             "\t\t\"unit\": \"第一单元\",\n" +
-            "\t\t\"courseName\": \"春晓\",\n" +
-            "\t\t\"courseImage\": \"uploadimage/suoluetu/20171011044123.jpg\",\n" +
-            "\t\t\"wordAuthorName\": \"冼星海\",\n" +
-            "\t\t\"anAuthorName\": \"贝多芬\",\n" +
+            "\t\t\"courseName\": \"祝你圣诞快乐\",\n" +
+            "\t\t\"courseImage\": \"file:///android_asset/祝你圣诞快乐/祝你圣诞快乐缩略图.jpg\",\n" +
+            "\t\t\"wordAuthorName\": \"薛范\",\n" +
+            "\t\t\"anAuthorName\": \"\",\n" +
             "\t\t\"mp3\": \"uploadimage/yuepuyin/春晓.mp3\"\n" +
             "\t}],\n" +
             "\t\"timestamp\": 1547014232\n" +
             "}";
+
+    /**
+     * 本地数据
+     */
+    private void getDemo() {
+        try {
+            JSONObject obj = new JSONObject(json);
+            courseVoList = new Gson().fromJson(obj.getString("data"), new TypeToken<List<CourseVo>>() {
+            }.getType());
+            if (courseVoList != null) {
+                gridViewAdaptehistoryList=new GridViewAdaptehistoryList(getActivity(),courseVoList,demoFlag);
+                gv_datas.setAdapter(gridViewAdaptehistoryList);
+                gv_datas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        Fragment videoFragment = new Fragment_MusicInfo_Item(courseVoList.get(i).getCourseId(),i);
+                        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+                        transaction.add(R.id.video_fragment, videoFragment).commit();
+                    }
+                });
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
     /**
      * 历史数据
      */
@@ -124,12 +158,12 @@ public class Fragment_Teaching_Item extends mFragment {
                     courseVoList = new Gson().fromJson(obj.getString("data"), new TypeToken<List<CourseVo>>() {
                     }.getType());
                     if (courseVoList != null) {
-                        gridViewAdaptehistoryList=new GridViewAdaptehistoryList(getActivity(),courseVoList);
+                        gridViewAdaptehistoryList=new GridViewAdaptehistoryList(getActivity(),courseVoList,demoFlag);
                         gv_datas.setAdapter(gridViewAdaptehistoryList);
                         gv_datas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                Fragment videoFragment = new Fragment_MusicInfo_Item();
+                                Fragment videoFragment = new Fragment_MusicInfo_Item(courseVoList.get(i).getCourseId());
                                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
                                 transaction.add(R.id.video_fragment, videoFragment).commit();
                             }

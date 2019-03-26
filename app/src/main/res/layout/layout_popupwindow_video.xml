@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/pop_layout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
@@ -16,13 +16,13 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="35dp">
+            android:layout_height="44dp">
 
 
             <TextView
                 android:id="@+id/tv_title"
                 android:gravity="center|left"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="19dp"
                 android:layout_width="0dip"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
@@ -31,33 +31,108 @@
                 android:textSize="16sp"
                 />
 
-            <TextView
+            <ImageView
                 android:id="@+id/tv_close"
-                android:gravity="center"
-                android:layout_marginRight="15dp"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="关闭"
+                android:layout_gravity="center"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="12dp"
+                android:layout_marginRight="6dp"
+                android:src="@mipmap/video_close_2x"
                 android:textColor="#ffffffff"
                 android:textSize="16sp"
                 />
 
         </LinearLayout>
-        <RelativeLayout
-            android:layout_marginBottom="30dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_width="850dp"
-            android:layout_height="550dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center">
             <VideoView
-                android:background="@mipmap/icon_default_bg"
                 android:id="@+id/videoView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                 />
-        </RelativeLayout>
+                />
+        </LinearLayout>
+
+        <SeekBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxHeight="6dp"
+            android:minHeight="6dp"
+            android:id="@+id/seekbar_video"
+            android:layout_marginTop="-6dp"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            android:progressDrawable="@drawable/bg_adjust_seek_bar"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@mipmap/videw_btn_pause"
+                android:layout_marginLeft="31dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:id="@+id/iv_video_pause"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="00:00"
+                android:textSize="12sp"
+                android:id="@+id/tv_video_current_time"
+                android:layout_marginLeft="23dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/"
+                android:layout_gravity="center_vertical"
+                android:textSize="20sp"
+                android:layout_margin="5dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="00:00"
+                android:textSize="12sp"
+                android:id="@+id/tv_video_duration"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:src="@mipmap/volume"
+                android:layout_gravity="center_vertical"/>
+            <SeekBar
+                android:layout_width="160dp"
+                android:layout_height="6dp"
+                android:layout_gravity="center_vertical"
+                android:paddingStart="0dp"
+                android:paddingEnd="0dp"
+                android:layout_marginLeft="10dp"
+                android:progressDrawable="@drawable/bg_adjust_seek_bar"
+                android:thumb="@null"
+                android:id="@+id/seekbar_voice"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/icon_fullscreen"
+                android:id="@+id/iv_fullscreen"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="30dp"/>
+        </LinearLayout>
 
 
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

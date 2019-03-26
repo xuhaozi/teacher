@@ -62,14 +62,22 @@ public class Fragment_Drawing_board extends mFragment {
     private float startY;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
-            savedInstanceState) {
-        views = inflater.inflate(R.layout.fragment_drawing_board, null);
-        x.view().inject(this, views);
-
-        initview();
-        return views;
+    protected int setContentView() {
+        return R.layout.fragment_drawing_board;
     }
+
+    @Override
+    protected void init() {
+        views=rootView;
+        x.view().inject(this, views);
+        initview();
+    }
+
+    @Override
+    protected void lazyLoad() {
+
+    }
+
 
     public void initview(){
         //使用Bitmap工厂把图片加载进来

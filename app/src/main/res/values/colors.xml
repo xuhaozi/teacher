@@ -18,4 +18,6 @@
     <color name="home_Theborder_Unchecked">#ff231f3a</color>
     <color name="home_Theborder_Selection">#DB1E83</color>
 
+    <color name="seekbar">#5E548C</color>
+
 </resources>

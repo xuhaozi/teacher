@@ -1,6 +1,7 @@
 package com.example.admin.musicclassroom.adapter;
 
 import android.content.Context;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.admin.musicclassroom.R;
@@ -21,12 +23,21 @@ import java.util.List;
 public class GridViewAdapteMusicianList extends BaseAdapter {
     private Context context;
     private List<MusicianVo> menus;
+    private int demoFlag;
 
     public GridViewAdapteMusicianList(Context context, List<MusicianVo> menus) {
         this.context = context;
         if (menus == null) menus = new ArrayList<MusicianVo>();
         this.menus = menus;
     }
+
+    public GridViewAdapteMusicianList(Context context, List<MusicianVo> menus, int demoFlag) {
+        this.context = context;
+        if (menus == null) menus = new ArrayList<MusicianVo>();
+        this.menus = menus;
+        this.demoFlag=demoFlag;
+    }
+
     @Override
     public int getCount() {
         return menus.size();
@@ -56,11 +67,19 @@ public class GridViewAdapteMusicianList extends BaseAdapter {
             vh = (ViewHolder) convertView.getTag();
         }
         final MusicianVo item = getItem(position);
-        Glide.with(context)
-                .load(Variable.accessaddress_img + item.getMusicianImage().toString())
-                .placeholder(R.mipmap.icon_default_bg)
-                .crossFade()
-                .into(vh.iv_cover);
+        if(demoFlag==1){
+            Glide.with(context)
+                    .load(item.getMusicianImage().toString())
+                    .placeholder(R.mipmap.icon_default_bg)
+                    .crossFade()
+                    .into(vh.iv_cover);
+        }else {
+            Glide.with(context)
+                    .load(Variable.accessaddress_img + item.getMusicianImage().toString())
+                    .placeholder(R.mipmap.icon_default_bg)
+                    .crossFade()
+                    .into(vh.iv_cover);
+        }
         vh.tv_title.setText(item.getMusicianName().toString().trim());
         return convertView;
     }

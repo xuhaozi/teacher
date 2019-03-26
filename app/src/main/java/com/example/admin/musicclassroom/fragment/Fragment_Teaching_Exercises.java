@@ -1,9 +1,13 @@
 package com.example.admin.musicclassroom.fragment;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +38,7 @@ import org.xutils.x;
 
 import java.util.List;
 
-
+@SuppressLint("ValidFragment")
 public class Fragment_Teaching_Exercises extends mFragment {
     //习题
     private View views;
@@ -45,15 +49,41 @@ public class Fragment_Teaching_Exercises extends mFragment {
     private Button btn_title;
 
     private List<ExerciseVo> exerciseVoList;
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
-            savedInstanceState) {
-        views = inflater.inflate(R.layout.fragment_teaching_exercises, null);
-        x.view().inject(this, views);
-        GetExercisesList();
-        return views;
+    private int demoFlag;
+
+    public Fragment_Teaching_Exercises(Long courseId, int position) {
+        super();
     }
 
+    @Override
+    protected int setContentView() {
+        return R.layout.fragment_teaching_exercises;
+    }
+
+    @Override
+    protected void init() {
+        views=rootView;
+        x.view().inject(this, views);
+        initDemo();
+    }
+
+    @Override
+    protected void lazyLoad() {
+
+    }
+
+
+    private void initDemo() {
+        //获取演示标识
+        SharedPreferences musicData = getContext().getSharedPreferences("MusicData", Context.MODE_PRIVATE);
+        demoFlag= musicData.getInt("demo", 0);
+        Log.i("demoFlag",demoFlag+"");
+        if(demoFlag==1){
+
+        }else {
+            GetExercisesList();
+        }
+    }
 
     /**
      * 获取习题列表

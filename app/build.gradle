@@ -24,6 +24,10 @@ android {
 
 
 
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
 }
 
 dependencies {
@@ -46,4 +50,15 @@ dependencies {
     implementation files('libs/gson-2.2.4.jar')
     implementation 'com.android.support:support-v4:27.1.1'
     api 'com.squareup.okhttp:okhttp:2.0.0'
+    implementation 'cn.jzvd:jiaozivideoplayer:6.2.9'
+
+
+    implementation 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
+    implementation 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'
+
+    implementation 'cn.jzvd:jiaozivideoplayer:6.4.1'
+    //autosize 屏幕适配
+    implementation 'me.jessyan:autosize:1.0.1'
+    //eventbus
+    implementation 'org.greenrobot:eventbus:3.0.0'
 }

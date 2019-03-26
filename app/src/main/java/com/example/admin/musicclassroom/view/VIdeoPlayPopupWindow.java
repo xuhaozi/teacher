@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -41,7 +42,8 @@ public class VIdeoPlayPopupWindow extends PopupWindow {
 
 
     @SuppressLint("InflateParams")
-    public VIdeoPlayPopupWindow(final Context context,TheoryVo theoryVo) {
+//    public VIdeoPlayPopupWindow(final Context context,TheoryVo theoryVo) {
+    public VIdeoPlayPopupWindow(final Context context,String title,String uriStr) {
         super(context);
         this.context = context;
         LayoutInflater inflater = (LayoutInflater) context
@@ -51,14 +53,24 @@ public class VIdeoPlayPopupWindow extends PopupWindow {
         tv_close = (TextView) mMenuView.findViewById(R.id.tv_close);
         videoView = (VideoView) mMenuView.findViewById(R.id.videoView);
 
-        tv_title.setText(theoryVo.getVideoVoList().get(0).getVideoName());
-        Uri uri = Uri.parse(Variable.accessaddress_img+theoryVo.getVideoVoList().get(0).getVideo());
-        //设置视频控制器
+//        tv_title.setText(theoryVo.getVideoVoList().get(0).getVideoName());
+//        Uri uri = Uri.parse(Variable.accessaddress_img+theoryVo.getVideoVoList().get(0).getVideo());
+        tv_title.setText(title);
+//        Uri uri = Uri.parse(Variable.accessaddress_img+uriStr);
+//        //设置视频控制器
+//        videoView.setMediaController(new MediaController(context));
+//        //播放完成回调
+//        videoView.setOnCompletionListener(new MyPlayerOnCompletionListener());
+//        //设置视频路径
+//        videoView.setVideoURI(uri);
+//        //开始播放视频
+//        videoView.start();
+        String videoUrl1 = Environment.getExternalStorageDirectory().getPath()+uriStr ;
         videoView.setMediaController(new MediaController(context));
         //播放完成回调
-        videoView.setOnCompletionListener(new MyPlayerOnCompletionListener());
+        videoView.setOnCompletionListener( new MyPlayerOnCompletionListener());
         //设置视频路径
-        videoView.setVideoURI(uri);
+        videoView.setVideoPath(videoUrl1);
         //开始播放视频
         videoView.start();
         tv_close.setOnClickListener(new OnClickListener() {

@@ -8,10 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.admin.musicclassroom.R;
@@ -27,14 +29,16 @@ import java.util.List;
 
 public class GridViewAdapteAppreciateTypeList extends BaseAdapter implements IListener {
     private Context context;
-    private List<MusicStyleVo> menus;
+    private List<List<MusicStyleVo>> menus;
+    private List<String> kindList;
 
     private GridViewAdapteAppreciateTypeListItem gridViewAdapteAppreciateTypeListItem;
-    public GridViewAdapteAppreciateTypeList(Context context, List<MusicStyleVo> menus) {
+    public GridViewAdapteAppreciateTypeList(Context context, List<List<MusicStyleVo>> menus,List<String> kindList) {
         ListenerManager.getInstance().registerListtener(this);
         this.context = context;
-        if (menus == null) menus = new ArrayList<MusicStyleVo>();
+        if (menus == null) menus = new ArrayList<List<MusicStyleVo>>();
         this.menus = menus;
+        this.kindList=kindList;
     }
     @Override
     public int getCount() {
@@ -42,7 +46,7 @@ public class GridViewAdapteAppreciateTypeList extends BaseAdapter implements ILi
     }
 
     @Override
-    public MusicStyleVo getItem(int position) {
+    public List<MusicStyleVo> getItem(int position) {
         return menus.get(position);
     }
 
@@ -58,21 +62,42 @@ public class GridViewAdapteAppreciateTypeList extends BaseAdapter implements ILi
             vh = new ViewHolder();
             convertView = LayoutInflater.from(context).inflate(R.layout.activity_appreciatetype_item, null);
             vh.tv_type = (TextView) convertView.findViewById(R.id.tv_type);
-            vh.lv_data = (ListView) convertView.findViewById(R.id.lv_data);
+            vh.expandlist = (ExpandableListView) convertView.findViewById(R.id.expandlist);
             convertView.setTag(vh);
         } else {
             vh = (ViewHolder) convertView.getTag();
         }
-        final MusicStyleVo item = getItem(position);
-        vh.tv_type.setText(item.getStyleKind().toString().trim());
-        gridViewAdapteAppreciateTypeListItem=new GridViewAdapteAppreciateTypeListItem(context,item.getMusicStyleVoList());
-        vh.lv_data.setAdapter(gridViewAdapteAppreciateTypeListItem);
-        vh.lv_data.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        final List<MusicStyleVo> item = getItem(position);
+        vh.tv_type.setText(kindList.get(position));
+        vh.expandlist.setGroupIndicator(null);
+        vh.expandlist.setAdapter(new ExpandablelistViewAdapterType(item,context));
+        vh.expandlist.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                ListenerManager.getInstance().sendBroadCast(String.valueOf(item.getMusicStyleVoList().get(i).getParentId()));
+            public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
+                if(item.get(i).getMusicStyleVoList()==null){
+                    Toast.makeText(context,item.get(i).getStyleName()+item.get(i).getStyleId(),Toast.LENGTH_SHORT).show();
+                    ListenerManager.getInstance().sendBroadCast(item.get(i).getStyleId()+"");
+                    return true;
+                }
+                return false;
             }
         });
+        vh.expandlist.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
+                Toast.makeText(context,item.get(i).getMusicStyleVoList().get(i1).getStyleName(),Toast.LENGTH_SHORT).show();
+                ListenerManager.getInstance().sendBroadCast(item.get(i).getMusicStyleVoList().get(i1).getStyleName()+"");
+                return true;
+            }
+        });
+//        gridViewAdapteAppreciateTypeListItem=new GridViewAdapteAppreciateTypeListItem(context,item.getMusicStyleVoList());
+//        vh.lv_data.setAdapter(gridViewAdapteAppreciateTypeListItem);
+//        vh.lv_data.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                ListenerManager.getInstance().sendBroadCast(String.valueOf(item.getMusicStyleVoList().get(i).getParentId()));
+//            }
+//        });
 //        vh.tv_author.setText(item.getWordAuthorName()+" "+item.getAnAuthorName()+" ".toString().trim());
 
 
@@ -87,7 +112,7 @@ public class GridViewAdapteAppreciateTypeList extends BaseAdapter implements ILi
     private class ViewHolder {
         private TextView tv_type;
 
-        private ListView lv_data;
+        private ExpandableListView expandlist;
     }
 
 
